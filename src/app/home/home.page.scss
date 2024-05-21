@@ -1,0 +1,49 @@
+ion-img {
+    height: 96px;
+    width: 92px;
+}
+
+.logo {
+    padding-top: 30%;
+}
+
+h1, ion-text, ion-button {
+    text-shadow: 2px 2px 4px gray;
+}
+
+ion-text {
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+.actions {
+    text-align: -webkit-center;
+}
+
+.button1 {
+    --color: black;
+    font-weight: bold;
+    margin-top: 12%;
+    font-size: 30px;
+    width: 75%;
+    height: 64px;
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    text-shadow: 2px 2px 4px gray;
+}
+
+.button2 {
+    --color: black;
+    margin-top: 10%;
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+.metafora {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#forward {
+    width: 30%;
+}
