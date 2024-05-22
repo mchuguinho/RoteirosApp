@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="container">
+    <div>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home" text="Voltar" color="dark" ></ion-back-button>
+      </ion-buttons>
+      <h1 id="title">Login</h1>
+    </div>
+    <div class="form">
+      <ion-list lines="none">
+        <ion-item>
+          <div class="icon">
+            <img src="assets/imgs/user.png" class="img-icon"> 
+          </div>
+          <ion-input labelPlacement="stacked" label="Email" placeholder="Insira aqui o seu email" class="custom">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <div class="icon">
+            <img src="assets/imgs/lock.png" class="img-icon"> 
+          </div>
+          <ion-input type="password" labelPlacement="stacked" label="Password" placeholder="Insira aqui a sua password" class="custom"></ion-input>     
+        </ion-item> 
+      </ion-list>
+      <ion-button expand="block" fill="solid" shape="round" size="small" class="gogo">
+        Registo
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,51 @@
+#title {
+  text-align: center;
+  font-size: 45px;
+  text-shadow: 2px 2px 5px gray;
+}
+
+.form {
+  --color: $primary;
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 30%;
+}
+
+.icon {
+  background-color: #1ae4d8;
+  width: 50px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgb(160, 160, 160);
+}
+
+.img-icon {
+  margin-top: 5px;
+  width: 37px;
+  height: 34px;
+}
+
+ion-input.custom {
+  --background: none;
+  --color: #000;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+}
+
+.gogo {
+  margin: 0 auto;
+  --color: black;
+  font-weight: bold;
+  margin-top: 12%;
+  font-size: 30px;
+  width: 75%;
+  height: 64px;
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  text-shadow: 2px 2px 4px gray;
+}
