@@ -2,6 +2,14 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
+ion-menu {
+
+  --width	: 160px;
+
+}
+
+
+
 ion-menu.md ion-content {
   --padding-start: 8px;
   --padding-end: 8px;
@@ -70,7 +78,7 @@ ion-menu.ios ion-content {
 }
 
 ion-menu.ios ion-list {
-  padding: 20px 0 0 0;
+  padding: 75% 0 0 0;
 }
 
 ion-menu.ios ion-note {

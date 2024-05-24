@@ -1,0 +1,57 @@
+<ion-header >
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+
+    </ion-toolbar>
+  </ion-header>
+
+<div class="divzao">
+<ion-grid>
+
+  <ion-row>
+    <ion-col>
+      <h2>Destino</h2>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-select label-placement="floating" label="Escolha o país do seu destino">
+          <ion-select-option value="brasil">Brasil</ion-select-option>
+          <ion-select-option value="usa">EUA</ion-select-option>
+          <ion-select-option value="france">França</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-select label-placement="floating" label="Escolha a cidade do seu destino">
+          <ion-select-option value="rio">Rio de Janeiro</ion-select-option>
+          <ion-select-option value="nyc">Nova Iorque</ion-select-option>
+          <ion-select-option value="paris">Paris</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
+    <ion-col>
+      <ion-button  fill="solid" shape="round" size="large" (click)="Next()"> Continuar</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+
+
+</div>
+
+
+</ion-content>
