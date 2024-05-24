@@ -1,16 +1,95 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>AddPontoInt</ion-title>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="home" text="Voltar" color="dark"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">AddPontoInt</ion-title>
+      <ion-title size="large" class="ion-justify-content-center">Roteiro "Paris"</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2 class="ion-text-center">Ponto de interesse</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Nome do Local" labelPlacement="stacked" placeholder="Insira o nome do Local"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Endereço" labelPlacement="stacked" placeholder="Insira o endereço do Local"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Custo" labelPlacement="stacked" placeholder="Insira o custo para a visita ao local"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Custo de Transporte" labelPlacement="stacked" placeholder="Insira o custo de transporte para o local"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Curiosidade" labelPlacement="stacked" placeholder="Escreva uma breve descrição do Local "
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Sugestão" labelPlacement="stacked" placeholder="Escreva uma sugestão sobre o local"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-input label="Fotografia" labelPlacement="stacked" placeholder="Adicione uma foto do local"
+              [clearOnEdit]="true"></ion-input>
+          <ion-button slot="end" fill="clear">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-text-center ion-justify-content-center ion-align-items-center">
+      <ion-col>
+        <ion-button fill="solid" shape="round" size="large">Submeter</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

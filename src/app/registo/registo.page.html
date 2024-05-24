@@ -1,13 +1,82 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>registo</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text="Voltar" color="dark"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">registo</ion-title>
+      <ion-title size="large" class=" ion-justify-content-center">Registo</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Nome Próprio" labelPlacement="stacked" placeholder="Insira o seu primeiro nome"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Apelido" labelPlacement="stacked" placeholder="Insira o seu apelido"
+            [clearOnEdit]="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row id="rowEmail">
+      <ion-col>
+        <ion-item>
+          <ion-input label="Email" labelPlacement="stacked" helperText="Insira o seu email" [clearOnEdit]="true" type="email" type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Email Inválido" ngModel email></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Password" labelPlacement="stacked" placeholder="Insira o sua password" [clearOnEdit]="true"
+            type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Confirmar Password" labelPlacement="stacked" placeholder="Repita a password"
+            [clearOnEdit]="true" type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row id="rowPais">
+      <ion-col>
+        <ion-item>
+          <ion-select label-placement="stacked" label="País" placeholder="Insira o seu País">
+            <ion-select-option value="brasil">Brasil</ion-select-option>
+            <ion-select-option value="portugal">Portugal</ion-select-option>
+            <ion-select-option value="usa">Estados Unidos</ion-select-option>
+            <ion-select-option value="franca">França</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
+      <ion-col>
+        <ion-button fill="solid" shape="round" size="large"> Criar Conta</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
