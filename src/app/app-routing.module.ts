@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
+    path: 'roteiro/:id',
+    loadChildren: () => import('./roteiro/roteiro.module').then( m => m.RoteiroPageModule)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
@@ -22,14 +26,15 @@ const routes: Routes = [
   {
     path: 'registo',
     loadChildren: () => import('./registo/registo.module').then( m => m.RegistoPageModule)
-  },  {
+  },
+  {
     path: 'route-add',
     loadChildren: () => import('./route-add/route-add.module').then( m => m.RouteAddPageModule)
   },
   {
     path: 'add-ponto-int',
     loadChildren: () => import('./add-ponto-int/add-ponto-int.module').then( m => m.AddPontoIntPageModule)
-  }
+  },
 
 ];
 

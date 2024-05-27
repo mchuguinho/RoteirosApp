@@ -21,7 +21,7 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-select label-placement="floating" label="Escolha o país do seu destino">
+        <ion-select label-placement="floating" label="Escolha o país do seu destino" [(ngModel)]="destinoP">
           <ion-select-option value="brasil">Brasil</ion-select-option>
           <ion-select-option value="portugal">Portugal</ion-select-option>
           <ion-select-option value="usa">EUA</ion-select-option>
@@ -34,12 +34,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-select label-placement="floating" label="Escolha a cidade do seu destino">
-          <ion-select-option value="porto">Porto</ion-select-option>
-          <ion-select-option value="lisboa">Lisboa</ion-select-option>
-          <ion-select-option value="rio">Rio de Janeiro</ion-select-option>
-          <ion-select-option value="nyc">Nova Iorque</ion-select-option>
-          <ion-select-option value="paris">Paris</ion-select-option>
+        <ion-select label-placement="floating" label="Escolha a cidade do seu destino" [(ngModel)]="destinoC">
+          <ion-select-option value="Porto">Porto</ion-select-option>
+          <ion-select-option value="Lisboa">Lisboa</ion-select-option>
+          <ion-select-option value="Rio de Janeiro">Rio de Janeiro</ion-select-option>
+          <ion-select-option value="Nova Iorque">Nova Iorque</ion-select-option>
+          <ion-select-option value="Paris">Paris</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
@@ -47,7 +47,7 @@
 
   <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
     <ion-col>
-      <ion-button  fill="solid" shape="round" size="large" (click)="Next()"> Continuar</ion-button>
+      <ion-button  fill="solid" shape="round" size="large" (click)="insertRoteiro()" routerLink="/roteiro/{{destinoC}}"> Continuar</ion-button>
     </ion-col>
   </ion-row>
 

@@ -6,7 +6,7 @@ export interface Roteiro {
   nomeRoteiro : string;
   destinoP: string;
   destinoC: string;
-  Pontos: PontoInteresse[];
+  Pontos?: PontoInteresse[];
   partilhado: boolean;
 
 }
@@ -22,29 +22,29 @@ export class RoteirosService {
         this.roteiros = [];
     }
 
-    getTarefas(): Roteiro[] {
+    getRoteiro(): Roteiro[] {
         return this.roteiros;
     }
 
-    insertTarefa(roteiro: Roteiro) {
+    insertRoteiro(roteiro: Roteiro) {
         this.roteiros.push(roteiro);
     }
 
-    updateTarefa(roteiro: Roteiro) {
+    updateRoteiro(roteiro: Roteiro) {
         const index = this.roteiros.findIndex(t => t.id === roteiro.id);
         if (index >= 0) {
             this.roteiros[index] = roteiro;
         }
     }
 
-    deleteTarefa(id: number) {
+    deleteRoteiro(id: number) {
         const index = this.roteiros.findIndex(t => t.id === id);
         if (index >= 0) {
             this.roteiros.splice(index, 1);
         }
     }
 
-    getTarefasConcluidas() {
+    getRoteirosPartilhados() {
         const roteirosPartilhados = this.roteiros.filter(roteiro => roteiro.partilhado);
         return roteirosPartilhados;
     }
