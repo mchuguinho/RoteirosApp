@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoteirosService, Roteiro } from '../services/roteiros.service';
+import { PaisesService } from '../services/paises.service';
 
 @Component({
   selector: 'app-route-add',
@@ -11,13 +12,28 @@ export class RouteAddPage implements OnInit {
   
   public roteiros: Roteiro[] = [];
   public novoRoteiro: string = '';
-  public destinoP: string = '';
+  destinoP: any;
+  paises: any[] = [];
+  cidades: any[] = [];
   public destinoC: string = '';
 
-  constructor(private router: Router, private roteirosService: RoteirosService) {}
+  constructor(private router: Router, private roteirosService: RoteirosService, private paisesService: PaisesService) {}
 
   ngOnInit() {
       this.roteiros = this.roteirosService.getRoteiro();
+      this.paisesService.getPaises().subscribe(data => {
+        this.paises = data.paises;
+      });  
+  }
+
+  onPaisChange(event: any) {
+    const selectedPais = event.detail.value;
+    if (selectedPais && selectedPais.cidades) {
+      this.cidades = selectedPais.cidades;
+    } else {
+      this.cidades = [];
+    }
+    this.destinoC = '';  // Resetar a cidade selecionada ao mudar o país
   }
 
   insertRoteiro() {

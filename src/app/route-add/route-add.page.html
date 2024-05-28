@@ -21,25 +21,18 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-select label-placement="floating" label="Escolha o país do seu destino" [(ngModel)]="destinoP">
-          <ion-select-option value="brasil">Brasil</ion-select-option>
-          <ion-select-option value="portugal">Portugal</ion-select-option>
-          <ion-select-option value="usa">EUA</ion-select-option>
-          <ion-select-option value="franca">França</ion-select-option>
+        <ion-select label-placement="floating" label="Escolha o país do seu destino" [(ngModel)]="destinoP" (ionChange)="onPaisChange($event)">
+          <ion-select-option *ngFor="let pais of paises" [value]="pais">{{ pais.nome }}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row *ngIf="cidades.length > 0">
     <ion-col>
       <ion-item>
         <ion-select label-placement="floating" label="Escolha a cidade do seu destino" [(ngModel)]="destinoC">
-          <ion-select-option value="Porto">Porto</ion-select-option>
-          <ion-select-option value="Lisboa">Lisboa</ion-select-option>
-          <ion-select-option value="Rio de Janeiro">Rio de Janeiro</ion-select-option>
-          <ion-select-option value="Nova Iorque">Nova Iorque</ion-select-option>
-          <ion-select-option value="Paris">Paris</ion-select-option>
+          <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.nome">{{ cidade.nome }}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>

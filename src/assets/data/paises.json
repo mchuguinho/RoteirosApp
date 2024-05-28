@@ -1,0 +1,64 @@
+{
+    "paises": [
+        {
+            "nome": "Portugal",
+            "id": 1,
+            "cidades": [
+                {
+                    "nome": "Lisboa"
+                },
+                {
+                    "nome": "Porto"
+                },
+                {
+                    "nome": "Viana do Castelo"
+                }
+            ]
+        },
+        {
+            "nome": "Espanha",
+            "id": 2,
+            "cidades": [
+                {
+                    "nome": "Madrid"
+                },
+                {
+                    "nome": "Barcelona"
+                },
+                {
+                    "nome": "Valencia"
+                }
+            ]
+        },
+        {
+            "nome": "França",
+            "id": 3,
+            "cidades": [
+                {
+                    "nome": "Paris"
+                },
+                {
+                    "nome": "Lyon"
+                },
+                {
+                    "nome": "Marselha"
+                }
+            ]
+        },
+        {
+            "nome": "Alemanha",
+            "id": 4,
+            "cidades": [
+                {
+                    "nome": "Berlim"
+                },
+                {
+                    "nome": "Munique"
+                },
+                {
+                    "nome": "Frankfurt"
+                }
+            ]
+        }
+    ]
+}
