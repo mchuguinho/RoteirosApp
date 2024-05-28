@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { RegistoPageRoutingModule } from './registo-routing.module';
@@ -13,7 +12,8 @@ import { RegistoPage } from './registo.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistoPageRoutingModule
+    RegistoPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [RegistoPage]
 })
