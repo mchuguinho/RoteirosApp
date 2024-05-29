@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { RegistoPageRoutingModule } from './registo-routing.module';
-
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { RegistoPage } from './registo.page';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { RegistoPage } from './registo.page';
     RegistoPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [RegistoPage]
+  declarations: [RegistoPage, ConfirmModalComponent]
 })
 export class RegistoPageModule {}

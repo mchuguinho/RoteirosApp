@@ -93,7 +93,7 @@
       <ion-row id="rowPais">
         <ion-col>
           <div class="item" >
-            <ion-select label-placement="stacked" label="País" placeholder="Insira o seu País">
+            <ion-select label-placement="stacked" formControlName="pais" label="País" placeholder="Insira o seu País">
               <ion-select-option value="brasil">Brasil</ion-select-option>
               <ion-select-option value="portugal">Portugal</ion-select-option>
               <ion-select-option value="usa">Estados Unidos</ion-select-option>
@@ -112,5 +112,16 @@
     </ion-grid>
 
   </form>
+
+  <ion-card>
+    <ion-list *ngIf="!isLoadingUsers">
+      <ion-item-sliding #slidingItem *ngFor="let user of users">
+        <ion-item>
+          <ion-label>{{ user.name }} + {{user.user_id}}</ion-label>
+          <ion-note slot="end">{{user.email}}</ion-note>
+        </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
 </ion-content>

@@ -19,7 +19,7 @@ export class SupabaseService {
     const { data, error } = await this.supabaseClient
       .from('users')
       .select('*')
-      .order('nome', { ascending: true });
+      .order('name', { ascending: true });
   
     if (error) {
       return [];
@@ -62,7 +62,7 @@ export class SupabaseService {
         email: user.email,
         password: user.password
       })
-      .eq('id', user.id);
+      .eq('id', user.user_id);
 
     if (error) {
       console.error(error);

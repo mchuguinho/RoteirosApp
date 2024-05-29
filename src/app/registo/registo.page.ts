@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 
 import { ViewChild } from '@angular/core';
 import { IonItemSliding } from '@ionic/angular';
+import { User } from '../services/user';
 
 @Component({
   selector: 'app-registo',
@@ -14,6 +15,15 @@ import { IonItemSliding } from '@ionic/angular';
   styleUrls: ['./registo.page.scss'],
 })
 export class RegistoPage {
+  
+  @ViewChild('slidingItem') slidingItem!: IonItemSliding;
+
+    users: User[];
+    user: User;
+    novoUser = false;
+    editarUser = false;
+    modalTitle: string;
+    isLoadingUsers: boolean;
 
   public registoForm: FormGroup;
 
@@ -23,9 +33,30 @@ export class RegistoPage {
       apelido: ['', [Validators.required,  Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,  Validators.minLength(8)]],
-      passwordC: ['', [Validators.required,  Validators.minLength(8)]]
+      passwordC: ['', [Validators.required,  Validators.minLength(8)]],
+      pais: ['',[Validators.required]]
     });
+    this.users = [];
+    this.modalTitle = '';
+    this.user = {
+        user_id: null || 0,
+        name: '',
+        email: '',
+        password:''
+    };
+    this.isLoadingUsers = true;
   }
+
+  async ionViewWillEnter() {
+    await this.getUsers();
+}
+
+async getUsers() {
+    this.isLoadingUsers = true;
+    this.users = await this.supabaseService.getUsers();
+    this.isLoadingUsers = false;
+}
+
 
   async onSubmit() {
     if (this.registoForm.valid) {
@@ -37,8 +68,11 @@ export class RegistoPage {
         password: formValues.password
       };
 
+        
       // Inserir usuário no Supabase
       const result = await this.supabaseService.insertUser(user);
+
+      console.log(user);
 
       if (result) {
         console.log('Usuário registrado com sucesso:', result);
@@ -54,6 +88,13 @@ export class RegistoPage {
     }
   }
 
-
+  ngAfterViewInit() {
+    setTimeout(() => {
+        this.slidingItem.open('end');
+        setTimeout(() => {
+            this.slidingItem.close();
+        }, 500); // Fechar após meio segundo
+    }, 500); // Abrir após meio segundo
+}
 
 }
