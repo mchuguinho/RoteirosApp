@@ -1,10 +1,14 @@
-ion-item {
+  .item {
 
-    margin-top: 3%;
-    --border-color:#1AE4D8;
-    --border-width: 2px;
-    --border-radius: 10px;
-  
+    border-radius: 15px;
+    border-width: 2px;
+    border-style: solid;
+    padding: 5px 5px 5px 10px;
+    margin-bottom: 5px; 
+    border-color:#1AE4D8;
+    
+
+    
   }
   
   ion-button {
@@ -13,7 +17,21 @@ ion-item {
     --background: #1AE4D8;
 
   }
+
+  ion-text {
+
+    width: 100%;
+    text-align: left;
+  }
   
+  .erro-container {
+
+    width: 100%;
+    margin-top: 4px;
+  }
+  
+  
+
   ion-grid{
 
     padding-top: 15%;
@@ -24,7 +42,6 @@ ion-item {
 
     padding-top: 20px;
     padding-bottom: 20px;
-    background: white;
   }
 
   #rowPais{

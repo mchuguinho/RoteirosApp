@@ -13,71 +13,115 @@
     </ion-toolbar>
   </ion-header>
 
+  <form [formGroup]="registoForm" (ngSubmit)="onSubmit()">
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <div class="item">
+            <ion-input label="Nome Próprio" formControlName="name" labelPlacement="stacked"
+              placeholder="Insira o seu primeiro nome"></ion-input>
+
+            <ion-text color="danger"
+              *ngIf="registoForm.get('name')!.invalid && (registoForm.get('name')!.touched || registoForm.get('name')!.dirty)">
+              <small *ngIf="registoForm.get('name')!.errors?.['required']">O nome é de preenchimento obrigatório</small>
+              <small *ngIf="registoForm.get('name')!.errors?.['minlength']">O nome deve ter pelo menos 2
+                caracteres</small>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="item" >
+            <ion-input label="Apelido" formControlName="apelido" labelPlacement="stacked"
+              placeholder="Insira o seu apelido" [clearOnEdit]="true"></ion-input>
+              <ion-text color="danger"
+              *ngIf="registoForm.get('apelido')!.invalid && (registoForm.get('apelido')!.touched || registoForm.get('apelido')!.dirty)">
+              <small *ngIf="registoForm.get('apelido')!.errors?.['required']">O Apelido é de preenchimento obrigatório</small>
+              <small *ngIf="registoForm.get('apelido')!.errors?.['minlength']">O Apelido deve ter pelo menos 2
+                caracteres</small>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="rowEmail">
+        <ion-col>
+          <div class="item" >
+            <ion-input label="Email" labelPlacement="stacked" formControlName="email" placeholder="Insira o seu email" [clearOnEdit]="true"
+              type="email"></ion-input>
+              <ion-text color="danger" *ngIf="registoForm.get('email')!.invalid && (registoForm.get('email')!.touched || registoForm.get('email')!.dirty)">
+                <small>Introduza um endereço de e-mail válido</small>
+              </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="item" >
+            <ion-input label="Password" labelPlacement="stacked" formControlName="password" placeholder="Insira o sua password"
+              [clearOnEdit]="true" type="password"></ion-input>
+              <ion-text color="danger"
+              *ngIf="registoForm.get('password')!.invalid && (registoForm.get('password')!.touched || registoForm.get('password')!.dirty)">
+              <small *ngIf="registoForm.get('password')!.errors?.['required']">A password é de preenchimento obrigatório</small>
+              <small *ngIf="registoForm.get('password')!.errors?.['minlength']">A password deve ter pelo menos 8
+                caracteres</small>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="item" >
+            <ion-input label="Confirmar Password" labelPlacement="stacked" formControlName="passwordC" placeholder="Repita a password"
+              [clearOnEdit]="true" type="password"></ion-input>
+              <ion-text color="danger"
+              *ngIf="registoForm.get('passwordC')!.invalid && (registoForm.get('passwordC')!.touched || registoForm.get('passwordC')!.dirty)">
+              <small *ngIf="registoForm.get('passwordC')!.errors?.['required']">A password é de preenchimento obrigatório</small>
+              <small *ngIf="registoForm.get('passwordC')!.errors?.['minlength']">A password deve ter pelo menos 8
+                caracteres</small>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="rowPais">
+        <ion-col>
+          <div class="item" >
+            <ion-select label-placement="stacked" formControlName="pais" label="País" placeholder="Insira o seu País">
+              <ion-select-option value="brasil">Brasil</ion-select-option>
+              <ion-select-option value="portugal">Portugal</ion-select-option>
+              <ion-select-option value="usa">Estados Unidos</ion-select-option>
+              <ion-select-option value="franca">França</ion-select-option>
+            </ion-select>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
+        <ion-col>
+          <ion-button fill="solid" shape="round" size="large" [disabled]="!registoForm.valid" (click)="onSubmit()" type="submit"> Criar Conta</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </form>
+
+  <ion-card>
+    <ion-list *ngIf="!isLoadingUsers">
+      <ion-item-sliding #slidingItem *ngFor="let user of users">
         <ion-item>
-          <ion-input label="Nome Próprio" labelPlacement="stacked" placeholder="Insira o seu primeiro nome"
-            [clearOnEdit]="true"></ion-input>
+          <ion-label>{{ user.name }} + {{user.user_id}}</ion-label>
+          <ion-note slot="end">{{user.email}}</ion-note>
         </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input label="Apelido" labelPlacement="stacked" placeholder="Insira o seu apelido"
-            [clearOnEdit]="true"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row id="rowEmail">
-      <ion-col>
-        <ion-item>
-          <ion-input label="Email" labelPlacement="stacked" placeholder="Insira o seu email" 
-            [clearOnEdit]="true" type="email" ngModel email></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input label="Password" labelPlacement="stacked" placeholder="Insira o sua password" [clearOnEdit]="true"
-            type="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input label="Confirmar Password" labelPlacement="stacked" placeholder="Repita a password"
-            [clearOnEdit]="true" type="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row id="rowPais">
-      <ion-col>
-        <ion-item>
-          <ion-select label-placement="stacked" label="País" placeholder="Insira o seu País">
-            <ion-select-option value="brasil">Brasil</ion-select-option>
-            <ion-select-option value="portugal">Portugal</ion-select-option>
-            <ion-select-option value="usa">Estados Unidos</ion-select-option>
-            <ion-select-option value="franca">França</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
-      <ion-col>
-        <ion-button fill="solid" shape="round" size="large"> Criar Conta</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
 </ion-content>
