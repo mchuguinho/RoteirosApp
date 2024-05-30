@@ -1,5 +1,5 @@
 ion-item {
-
+    --min-height: 16px;
     margin-top: 2%;
     --border-color:#1AE4D8;
     --border-width: 2px;
@@ -7,9 +7,32 @@ ion-item {
   
   }
   
-  ion-button {
-    margin-top: 50%;
-    --border-radius: 35px;
-    --background: #1AE4D8;
+ion-button {
+  margin-top: 5%;
+  --border-radius: 35px;
+  --background: #1AE4D8;
+}
 
-  }
+.botao-camera {
+  margin: 0 auto;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: transparent;
+  --color: var(--ion-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.last {
+  padding-bottom: 5%;
+}
