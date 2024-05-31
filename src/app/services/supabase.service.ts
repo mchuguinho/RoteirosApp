@@ -42,6 +42,36 @@ export class SupabaseService {
     return data as User;
   }
 
+  async getUserByEmailAndPassword(email: string, password: string): Promise<User | null> {
+    const { data, error } = await this.supabaseClient
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .eq('password', password)
+      .single();
+
+    if (error) {
+      console.error('Erro ao buscar usuário:', error);
+      return null;
+    }
+
+    return data ? data : null;
+  }
+
+  async getUserByName4ID(nome: string): Promise<number> {
+    const { data, error } = await this.supabaseClient
+      .from('users')
+      .select('user_id')
+      .eq('name', nome)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data.user_id;
+  }
+
   async insertUser(user: User) {
     const { data, error } = await this.supabaseClient
       .from('users')
@@ -51,6 +81,7 @@ export class SupabaseService {
     if (error) {
       return null;
     }
+    console.log(data);
     return data;
   }
   

@@ -19,7 +19,7 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
         Drivers.IndexedDB,
         Drivers.LocalStorage
     ],
-    name: '_tarefas'
+    name: 'id'
 }),],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

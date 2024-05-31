@@ -1,11 +1,9 @@
-import { ParseSourceFile } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SupabaseService } from '../services/supabase.service';
-import { ModalController } from '@ionic/angular';
-
-
-import { ViewChild } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ProfileIdService } from '../services/profile-id.service';
 import { IonItemSliding } from '@ionic/angular';
 import { User } from '../services/user';
 
@@ -14,49 +12,67 @@ import { User } from '../services/user';
   templateUrl: './registo.page.html',
   styleUrls: ['./registo.page.scss'],
 })
-export class RegistoPage {
-  
+export class RegistoPage implements OnInit, AfterViewInit {
+
+  idSR: number;
+
   @ViewChild('slidingItem') slidingItem!: IonItemSliding;
 
-    users: User[];
-    user: User;
-    novoUser = false;
-    editarUser = false;
-    modalTitle: string;
-    isLoadingUsers: boolean;
+  users: User[];
+  user: User;
+  novoUser = false;
+  editarUser = false;
+  modalTitle: string;
+  isLoadingUsers: boolean;
 
   public registoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private supabaseService: SupabaseService, private modalController: ModalController) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private supabaseService: SupabaseService,
+    private modalController: ModalController,
+    private profileid: ProfileIdService,
+    private toastController: ToastController
+  ) {
+    this.idSR = 0;
     this.registoForm = this.formBuilder.group({
-      name: ['', [Validators.required,  Validators.minLength(2)]],
-      apelido: ['', [Validators.required,  Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      apelido: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,  Validators.minLength(8)]],
-      passwordC: ['', [Validators.required,  Validators.minLength(8)]],
-      pais: ['',[Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      passwordC: ['', [Validators.required, Validators.minLength(8)]],
+      pais: ['', [Validators.required]]
     });
     this.users = [];
     this.modalTitle = '';
     this.user = {
-        user_id: null || 0,
-        name: '',
-        email: '',
-        password:''
+      user_id: 0,
+      name: '',
+      email: '',
+      password: ''
     };
     this.isLoadingUsers = true;
   }
 
+  async ngOnInit() {
+    await this.getUsers();
+  }
+
   async ionViewWillEnter() {
     await this.getUsers();
-}
+  }
 
-async getUsers() {
+  async getUsers() {
     this.isLoadingUsers = true;
-    this.users = await this.supabaseService.getUsers();
-    this.isLoadingUsers = false;
-}
-
+    try {
+      this.users = await this.supabaseService.getUsers();
+    } catch (error) {
+      console.error('Erro ao carregar usuários:', error);
+    } finally {
+      this.isLoadingUsers = false;
+    }
+  }
 
   async onSubmit() {
     if (this.registoForm.valid) {
@@ -68,17 +84,25 @@ async getUsers() {
         password: formValues.password
       };
 
-        
-      // Inserir usuário no Supabase
-      const result = await this.supabaseService.insertUser(user);
+      try {
+        // Inserir usuário no Supabase
+        await this.supabaseService.insertUser(user);
 
-      console.log(user);
+        // buscar o id do user
+        this.idSR = await this.supabaseService.getUserByName4ID(user.name);
+        this.profileid.setId(this.idSR);
 
-      if (result) {
-        console.log('Usuário registrado com sucesso:', result);
-        // Redirecionar ou dar feedback ao usuário
-      } else {
-        console.error('Erro ao registrar usuário');
+        console.log(`${this.idSR} .. este está no serviço ${this.profileid.idS}`);
+        console.log(user);
+
+        await this.showToast('Usuário registrado com sucesso');
+
+        console.log('Usuário registrado com sucesso');
+        // mandar o user para a biblioteca
+        await this.router.navigateByUrl('/login');
+      } catch (error) {
+        console.error('Erro durante o registro:', error);
+        await this.showToast('Erro ao registrar usuário');
       }
     } else {
       // Marcar todos os campos como tocados para exibição das mensagens de erro
@@ -88,13 +112,20 @@ async getUsers() {
     }
   }
 
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    await toast.present();
+  }
+
   ngAfterViewInit() {
     setTimeout(() => {
-        this.slidingItem.open('end');
-        setTimeout(() => {
-            this.slidingItem.close();
-        }, 500); // Fechar após meio segundo
+      this.slidingItem.open('end');
+      setTimeout(() => {
+        this.slidingItem.close();
+      }, 500); // Fechar após meio segundo
     }, 500); // Abrir após meio segundo
-}
-
+  }
 }

@@ -16,6 +16,7 @@
     <div>
       <h1 id="title">Login</h1>
     </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form">
       <ion-list lines="none">
         <ion-item>
@@ -36,5 +37,6 @@
         Registo
       </ion-button>
     </div>
+  </form>
   </div>
 </ion-content>
