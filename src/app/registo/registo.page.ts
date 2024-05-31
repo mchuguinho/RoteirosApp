@@ -92,7 +92,7 @@ export class RegistoPage implements OnInit, AfterViewInit {
         this.idSR = await this.supabaseService.getUserByName4ID(user.name);
         this.profileid.setId(this.idSR);
 
-        console.log(`${this.idSR} .. este está no serviço ${this.profileid.idS}`);
+        console.log(this.idSR + " .. este está no serviço " +  this.profileid.idS);
         console.log(user);
 
         await this.showToast('Usuário registrado com sucesso');

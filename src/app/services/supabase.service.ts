@@ -52,10 +52,10 @@ export class SupabaseService {
 
     if (error) {
       console.error('Erro ao buscar usuário:', error);
-      return null;
+      throw null;
     }
 
-    return data ? data : null;
+    return data ;
   }
 
   async getUserByName4ID(nome: string): Promise<number> {
@@ -66,7 +66,21 @@ export class SupabaseService {
       .single();
 
     if (error) {
-      throw error;
+      throw error
+    }
+
+    return data.user_id;
+  }
+
+  async getUserByEmail4ID(email: string): Promise<number> {
+    const { data, error } = await this.supabaseClient
+      .from('users')
+      .select('user_id')
+      .eq('email', email)
+      .single();
+
+    if (error) {
+      throw error
     }
 
     return data.user_id;

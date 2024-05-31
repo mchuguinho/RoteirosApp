@@ -23,17 +23,17 @@
           <div class="icon">
             <img src="assets/imgs/user.png" class="img-icon"> 
           </div>
-          <ion-input labelPlacement="stacked" label="Email" placeholder="Insira aqui o seu email" class="custom">
+          <ion-input labelPlacement="stacked" formControlName="email" label="Email" placeholder="Insira aqui o seu email" class="custom">
           </ion-input>
         </ion-item>
         <ion-item>
           <div class="icon">
             <img src="assets/imgs/lock.png" class="img-icon"> 
           </div>
-          <ion-input type="password" labelPlacement="stacked" label="Password" placeholder="Insira aqui a sua password" class="custom"></ion-input>     
+          <ion-input type="password" formControlName="password" labelPlacement="stacked" label="Password" placeholder="Insira aqui a sua password" class="custom"></ion-input>     
         </ion-item> 
       </ion-list>
-      <ion-button expand="block" fill="solid" shape="round" size="small" class="gogo">
+      <ion-button (click)="onSubmit()" type="submit" expand="block" fill="solid" shape="round" size="small" class="gogo">
         Registo
       </ion-button>
     </div>
