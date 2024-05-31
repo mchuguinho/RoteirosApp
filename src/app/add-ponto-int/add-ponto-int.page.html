@@ -9,7 +9,9 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" class="ion-justify-content-center">Roteiro "Paris"</ion-title>
+      <ion-text class="ion-text-center">
+        <h1>Roteiro "Paris"</h1>
+      </ion-text>
     </ion-toolbar>
   </ion-header>
 
@@ -23,8 +25,17 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Nome do Local" labelPlacement="stacked" placeholder="Insira o nome do Local"
-            [clearOnEdit]="true"></ion-input>
+          <ion-input class="custom-input" label="Nome do Local" labelPlacement="stacked" placeholder="Insira o nome do local"
+           ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="last">
+          <ion-input class="custom-input" label="Endereço" labelPlacement="stacked" placeholder="Insira o endereço do local"
+            ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -32,8 +43,17 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Endereço" labelPlacement="stacked" placeholder="Insira o endereço do Local"
-            [clearOnEdit]="true"></ion-input>
+          <ion-input class="custom-input" type="number" label="Custo" labelPlacement="stacked" placeholder="Insira o custo para a visita ao local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
+           ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="last">
+          <ion-input class="custom-input" type="number" label="Custo de Transporte" labelPlacement="stacked" placeholder="Insira o custo de transporte para o local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
+            ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -41,8 +61,17 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Custo" labelPlacement="stacked" placeholder="Insira o custo para a visita ao local"
-            [clearOnEdit]="true"></ion-input>
+          <ion-input class="custom-input" label="Curiosidade" labelPlacement="stacked" placeholder="Escreva uma breve descrição do Local "
+            ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="last">
+          <ion-input class="custom-input" label="Sugestão" labelPlacement="stacked" placeholder="Escreva uma sugestão sobre o local"
+            ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -50,38 +79,13 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Custo de Transporte" labelPlacement="stacked" placeholder="Insira o custo de transporte para o local"
-            [clearOnEdit]="true"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input label="Curiosidade" labelPlacement="stacked" placeholder="Escreva uma breve descrição do Local "
-            [clearOnEdit]="true"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input label="Sugestão" labelPlacement="stacked" placeholder="Escreva uma sugestão sobre o local"
-            [clearOnEdit]="true"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item>
-            <ion-input label="Fotografia" labelPlacement="stacked" placeholder="Adicione uma foto do local"
-              [clearOnEdit]="true"></ion-input>
-          <ion-button slot="end" fill="clear">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
+            <ion-input class="custom-input" label="Fotografia" labelPlacement="stacked" [value]="selectedFileName"
+              [readonly]="true" name="text"></ion-input>
+          <ion-button slot="end" [color]="iconColor" fill="clear" class="botao-camera" (click)="fileInput.click()">
+            <ion-icon slot="icon-only" [name]="iconName">
+            </ion-icon>
           </ion-button>
+          <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
         </ion-item>
       </ion-col>
     </ion-row>
