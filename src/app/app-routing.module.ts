@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'biblio',
     loadChildren: () => import('./biblio/biblio.module').then( m => m.BiblioPageModule)
   },
+  {
+    path: 'discovery',
+    loadChildren: () => import('./discovery/discovery.module').then( m => m.DiscoveryPageModule)
+  },
 
 
 ];

@@ -7,11 +7,11 @@ import { Roteiro } from '../services/roteiro';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
-  selector: 'app-biblio',
-  templateUrl: './biblio.page.html',
-  styleUrls: ['./biblio.page.scss'],
+  selector: 'app-discovery',
+  templateUrl: './discovery.page.html',
+  styleUrls: ['./discovery.page.scss'],
 })
-export class BiblioPage implements OnInit, AfterViewInit {
+export class DiscoveryPage implements OnInit {
 
   @ViewChild('slidingItem') slidingItem!: IonItemSliding;
 
@@ -56,7 +56,7 @@ export class BiblioPage implements OnInit, AfterViewInit {
   async getRoteiros() {
     this.isLoadingRoteiros = true;
     try {
-      this.roteiros = await this.supabaseService.getRoteiros(this.idT);
+      this.roteiros = await this.supabaseService.getRoteirosPartilhados();
     } catch (error) {
       console.error('Erro ao carregar roteiro:', error);
     } finally {
@@ -64,6 +64,11 @@ export class BiblioPage implements OnInit, AfterViewInit {
     }
   }
 
+  async addPartilhadoBiblioteca(id_interno : number){
+
+    this.supabaseService.letMeCopyThatRoteiro(id_interno);
+
+  }
 
   async removerRoteiro(id: number) {
     const modal = await this.modalController.create({
@@ -99,5 +104,6 @@ export class BiblioPage implements OnInit, AfterViewInit {
       }, 500); // Fechar após meio segundo
     }, 500); // Abrir após meio segundo
   }
+
 
 }

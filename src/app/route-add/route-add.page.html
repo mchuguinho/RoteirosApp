@@ -31,7 +31,7 @@
   <ion-row *ngIf="cidades.length > 0">
     <ion-col>
       <ion-item>
-        <ion-select label-placement="floating" label="Escolha a cidade do seu destino" [(ngModel)]="destinoC">
+        <ion-select label-placement="floating" label="Escolha a cidade do seu destino" [(ngModel)]="destinoC" (ionChange)="onPaissChange($event)">
           <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.nome">{{ cidade.nome }}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -40,7 +40,7 @@
 
   <ion-row class="ion-text-center  ion-justify-content-center ion-align-items-center">
     <ion-col>
-      <ion-button  fill="solid" shape="round" size="large"  routerLink="/roteiro/{{destinoC}}"> Continuar</ion-button>
+      <ion-button  fill="solid" shape="round" size="large" [disabled]="!podes" (click)="addRoteiro()"> Continuar</ion-button>
     </ion-col>
   </ion-row>
 

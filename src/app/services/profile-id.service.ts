@@ -6,11 +6,13 @@ import { Injectable } from '@angular/core';
 export class ProfileIdService {
 
   public idS : number;
-  public lastRoteiroIDS: number;
+  public lastRoteiroInternoID: number;
+  public roteiroPartilhadoAdicionado: number;
 
   constructor() { 
     this.idS=0;
-    this.lastRoteiroIDS = 0;
+    this.lastRoteiroInternoID = 0;
+    this.roteiroPartilhadoAdicionado = 0;
   }
 
   getId(){
@@ -25,7 +27,7 @@ export class ProfileIdService {
 
   setRoteiroID(lastRoteiroIDN: number){
 
-    this.lastRoteiroIDS=lastRoteiroIDN;
+    this.lastRoteiroInternoID=lastRoteiroIDN;
 
   }
 }

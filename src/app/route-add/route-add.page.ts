@@ -13,6 +13,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class RouteAddPage implements OnInit {
   
+  podes = false;
   counterID = 1;
   destinoP: any;
   paises: any[] = [];
@@ -42,39 +43,42 @@ export class RouteAddPage implements OnInit {
     this.destinoC = '';  // Resetar a cidade selecionada ao mudar o país
   }
 
+  onPaissChange(event: any) {
+    if(this.destinoC != ""){
+      this.podes = true;
+    }
+  }
+
   async addRoteiro(){
+
+    
 
     const roteiro = {
       nomeRoteiro: this.destinoC,
       user_id: this.profileid.idS,
       destinoC: this.destinoC,
-      destinoP: this.destinoP,
-      partilhado: false
+      destinoP: this.destinoP.nome,
+      partilhado: false,
+      id_interno : Math.random() * 100000000000000000,
  
     };
 
     try {
-      // Inserir usuário no Supabase
-      await     this.supabaseService.insertRoteiro(roteiro)
 
-      // buscar o id do user
-      this.idSR = await this.supabaseService.getUserByName4ID(user.name);
-      this.profileid.setId(this.idSR);
+      // Inserir roteiro no Supabase
+      await  this.supabaseService.insertRoteiro(roteiro)
+      this.profileid.lastRoteiroInternoID = roteiro.id_interno;
 
-      console.log(this.idSR + " .. este está no serviço " + this.profileid.idS);
-      console.log(user);
+      console.log(this.profileid.lastRoteiroInternoID + "  == " + roteiro.id_interno);
 
-      this.showToast('Usuário registrado com sucesso');
+      this.showToast('Roteiro criado com sucesso');
 
-      console.log('Usuário registrado com sucesso');
-      // mandar o user para a biblioteca
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/roteiro/' + this.profileid.lastRoteiroInternoID);
+
     } catch (error) {
       console.error('Erro durante o registro:', error);
       await this.showToast('Erro ao registrar usuário');
     }
-
-
 
   }
   
