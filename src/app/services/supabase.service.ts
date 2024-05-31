@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { User } from './user';
+import { Roteiro } from './roteiro';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,25 @@ export class SupabaseService {
     return data as User[];
   }
 
+  async getRoteiros(id: number): Promise<Roteiro[]> {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .select('*')
+      .eq('user_id', id)
+      .order('nomeRoteiro', { ascending: true });
+  
+    if (error) {
+      return [];
+    }
+  
+    return data as Roteiro[];
+  }
+
   async getUserById(id: number): Promise<User> {
     const { data, error } = await this.supabaseClient
       .from('users')
       .select('*')
-      .eq('id', id)
+      .eq('user_id', id)
       .single();
 
     if (error) {
@@ -86,6 +101,51 @@ export class SupabaseService {
     return data.user_id;
   }
 
+  async insertRoteiro(roteiro: Roteiro) {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .insert(roteiro)
+      .single();
+  
+    if (error) {
+      return null;
+    }
+    console.log(data);
+    return data;
+  }
+  
+  async updateRoteiro(roteiro: Roteiro): Promise<void> {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .update({
+        nomeRoteiro: roteiro.nomeRoteiro,
+      })
+      .eq('roteiro_id', roteiro.roteiro_id);
+
+    if (error) {
+      console.error(error);
+      throw new Error('Erro ao atualizar roteiro');
+    }
+  }
+
+  async partilharRoteiro(id : number): Promise<void> {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .update({
+        partilhado: true,
+      })
+      .eq('roteiro_id', id);
+
+    if (error) {
+      console.error(error);
+      throw new Error('Erro ao partilhar');
+    }
+  }
+  
+  async deleteRoteiro(id: number): Promise<void> {
+    await this.supabaseClient.from('roteiros').delete().eq('roteiro_id', id);
+  }  
+
   async insertUser(user: User) {
     const { data, error } = await this.supabaseClient
       .from('users')
@@ -107,7 +167,7 @@ export class SupabaseService {
         email: user.email,
         password: user.password
       })
-      .eq('id', user.user_id);
+      .eq('user_id', user.user_id);
 
     if (error) {
       console.error(error);
@@ -116,7 +176,7 @@ export class SupabaseService {
   }
   
   async deleteUser(id: number): Promise<void> {
-    await this.supabaseClient.from('users').delete().eq('id', id);
+    await this.supabaseClient.from('users').delete().eq('user_id', id);
   }  
 
 }

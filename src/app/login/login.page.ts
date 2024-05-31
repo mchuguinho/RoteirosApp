@@ -38,10 +38,12 @@ export class LoginPage implements OnInit {
 
       if (user) {
         await this.showToast('Login realizado com sucesso');
-        this.router.navigateByUrl('/home');
+
         this.idSL = await this.supabaseService.getUserByEmail4ID(email);
         this.profileid.setId(this.idSL);
         console.log("login id --:" + this.idSL);
+
+        this.router.navigateByUrl('/biblio');
       } else {
         await this.showToast('Email ou password inválidos');
       }

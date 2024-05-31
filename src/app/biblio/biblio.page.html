@@ -1,0 +1,50 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Biblioteca de Roteiros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Biblioteca de Roteiros</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container" class="divv">
+    
+
+      <ion-list *ngIf="!isLoadingRoteiros">
+        <ion-item-sliding #slidingItem *ngFor="let roteiro of roteiros">
+          <ion-item>
+            <ion-label>{{ roteiro.nomeRoteiro }}</ion-label>
+            <ion-note slot="end">{{roteiro.destinoC}}</ion-note>
+          </ion-item>
+          <ion-item-option color="danger" (click)="removerRoteiro(roteiro.roteiro_id || 0)">
+            <ion-label class="ion-text-center">
+              <ion-icon name="trash"></ion-icon>
+              <div>Remover</div>
+            </ion-label>
+          </ion-item-option>
+          </ion-item-sliding>
+
+
+
+      </ion-list>
+
+      <ion-list *ngIf="isLoadingRoteiros">
+        <ion-item>
+          <ion-label color="primary">A carregar roteiros...</ion-label>
+          <ion-spinner name="circles" color="primary"></ion-spinner>
+        </ion-item>
+      </ion-list>
+
+
+    <ion-button  type="submit" expand="block" fill="solid" size="big" routerLink="/route-add">+</ion-button>
+    
+
+  </div>
+</ion-content>

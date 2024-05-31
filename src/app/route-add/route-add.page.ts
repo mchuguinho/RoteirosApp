@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoteirosService, Roteiro } from '../services/roteiros.service';
 import { PaisesService } from '../services/paises.service';
+import { SupabaseService } from '../services/supabase.service';
+import { ProfileIdService } from '../services/profile-id.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-route-add',
@@ -10,17 +13,20 @@ import { PaisesService } from '../services/paises.service';
 })
 export class RouteAddPage implements OnInit {
   
-  public roteiros: Roteiro[] = [];
-  public novoRoteiro: string = '';
+  counterID = 1;
   destinoP: any;
   paises: any[] = [];
   cidades: any[] = [];
   public destinoC: string = '';
 
-  constructor(private router: Router, private roteirosService: RoteirosService, private paisesService: PaisesService) {}
+  constructor(    private router: Router,
+    private supabaseService: SupabaseService,
+    private profileid: ProfileIdService,
+    private toastController: ToastController,
+     private paisesService: PaisesService) {}
 
   ngOnInit() {
-      this.roteiros = this.roteirosService.getRoteiro();
+
       this.paisesService.getPaises().subscribe(data => {
         this.paises = data.paises;
       });  
@@ -36,31 +42,52 @@ export class RouteAddPage implements OnInit {
     this.destinoC = '';  // Resetar a cidade selecionada ao mudar o país
   }
 
-  insertRoteiro() {
-      if (this.novoRoteiro && this.destinoP && this.destinoC) {
-          const roteiro: Roteiro = {
-              id: Date.now(),
-              nomeRoteiro: this.novoRoteiro,
-              destinoP: this.destinoP,
-              destinoC: this.destinoC,
-              partilhado: false,
-          };
-          this.roteirosService.insertRoteiro(roteiro);
-          this.novoRoteiro = '';
-          this.destinoP = '';
-          this.destinoC = '';
-      }
-  }
+  async addRoteiro(){
 
+    const roteiro = {
+      nomeRoteiro: this.destinoC,
+      user_id: this.profileid.idS,
+      destinoC: this.destinoC,
+      destinoP: this.destinoP,
+      partilhado: false
+ 
+    };
+
+    try {
+      // Inserir usuário no Supabase
+      await     this.supabaseService.insertRoteiro(roteiro)
+
+      // buscar o id do user
+      this.idSR = await this.supabaseService.getUserByName4ID(user.name);
+      this.profileid.setId(this.idSR);
+
+      console.log(this.idSR + " .. este está no serviço " + this.profileid.idS);
+      console.log(user);
+
+      this.showToast('Usuário registrado com sucesso');
+
+      console.log('Usuário registrado com sucesso');
+      // mandar o user para a biblioteca
+      this.router.navigateByUrl('/login');
+    } catch (error) {
+      console.error('Erro durante o registro:', error);
+      await this.showToast('Erro ao registrar usuário');
+    }
+
+
+
+  }
+  
   public verRoteiro() {
     this.router.navigateByUrl('/roteiro/' + this.destinoC);
   }
 
-  updateRoteiro(roteiro: Roteiro) {
-      this.roteirosService.updateRoteiro(roteiro);
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    await toast.present();
   }
 
-  deleteRoteiro(roteiro: Roteiro) {
-      this.roteirosService.deleteRoteiro(roteiro.id);
-  }
 }
