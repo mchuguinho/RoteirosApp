@@ -18,35 +18,35 @@ export class SupabaseService {
     this.supabaseClient = createClient(this.supabaseUrl, this.supabaseKey);
   }
 
-  async getPontosdeInteresse(id_interno:number) : Promise<Pontodeinteresse[]> {
+  async getPontosdeInteresse(id_interno: number): Promise<Pontodeinteresse[]> {
 
     const roteiroID = await this.getRoteiroIDByInternID(id_interno);
 
     const { data, error } = await this.supabaseClient
-    .from('pontosdeinteresse')
-    .select('*')
-    .eq('roteiro_id', roteiroID)
-    .order('ponto_id', { ascending: true });
+      .from('pontosdeinteresse')
+      .select('*')
+      .eq('roteiro_id', roteiroID)
+      .order('ponto_id', { ascending: true });
 
-  if (error) {
-    console.log("deu não amigo");
-    return [];
+    if (error) {
+      console.log("deu não amigo");
+      return [];
+    }
+
+    return data as Pontodeinteresse[];
+
   }
 
-  return data as Pontodeinteresse[];
-
-  }
-  
   async getUsers(): Promise<User[]> {
     const { data, error } = await this.supabaseClient
       .from('users')
       .select('*')
       .order('name', { ascending: true });
-  
+
     if (error) {
       return [];
     }
-  
+
     return data as User[];
   }
 
@@ -56,11 +56,11 @@ export class SupabaseService {
       .select('*')
       .eq('user_id', id_user)
       .order('nomeRoteiro', { ascending: true });
-  
+
     if (error) {
       return [];
     }
-  
+
     return data as Roteiro[];
   }
 
@@ -70,21 +70,21 @@ export class SupabaseService {
       .select('*')
       .eq('partilhado', true)
       .order('nomeRoteiro', { ascending: true });
-  
+
     if (error) {
       return [];
     }
-  
+
     return data as Roteiro[];
   }
 
-  async letMeCopyThatRoteiro(idinterno:number){
+  async letMeCopyThatRoteiro(idinterno: number) {
 
     const { data, error } = await this.supabaseClient
-    .from('roteiros')
-    .select('*')
-    .eq('id_interno', idinterno)
-    .single();
+      .from('roteiros')
+      .select('*')
+      .eq('id_interno', idinterno)
+      .single();
 
     const roteiroNovo = {
       nomeRoteiro: data.nomeRoteiro,
@@ -92,16 +92,16 @@ export class SupabaseService {
       destinoC: data.destinoC,
       destinoP: data.destinoP,
       partilhado: false,
-      id_interno : Math.random() * 100000000000000000,
- 
+      id_interno: Math.random() * 100000000000000000,
+
     };
 
-    if(data.user_id != this.profileid.idS){
+    if (data.user_id != this.profileid.idS) {
 
       this.insertRoteiro(roteiroNovo);
 
     }
-    
+
 
   }
 
@@ -146,7 +146,7 @@ export class SupabaseService {
       throw null;
     }
 
-    return data ;
+    return data;
   }
 
   async getUserByName4ID(nome: string): Promise<number> {
@@ -224,7 +224,7 @@ export class SupabaseService {
       .from('roteiros')
       .insert(roteiro)
       .single();
-  
+
     if (error) {
       return null;
     }
@@ -237,7 +237,7 @@ export class SupabaseService {
       .from('pontosdeinteresse')
       .insert(pontodeinteresse)
       .single();
-  
+
     if (error) {
       return null;
     }
@@ -245,7 +245,7 @@ export class SupabaseService {
     return data;
   }
 
-  async partilharRoteiro(id : number): Promise<void> {
+  async partilharRoteiro(id: number): Promise<void> {
     const { data, error } = await this.supabaseClient
       .from('roteiros')
       .update({
@@ -258,24 +258,44 @@ export class SupabaseService {
       throw new Error('Erro ao partilhar');
     }
   }
-  
+
   async deleteRoteiro(id: number): Promise<void> {
-    await this.supabaseClient.from('roteiros').delete().eq('roteiro_id', id);
-  }  
+
+    const { error : a} = await this.supabaseClient
+    .from('pontosdeinteresse')
+    .delete()
+    .eq('roteiro_id', id);
+
+  if (a) {
+    console.error('Erro ao eliminar pontos:', a);
+    throw new Error('Não deu para eliminar PDI');
+  }
+
+  const { error } = await this.supabaseClient
+    .from('roteiros')
+    .delete()
+    .eq('roteiro_id', id);
+
+  if (error) {
+    console.error('Erro ao eliminar roteiro:', error);
+    throw new Error('Não deu para eliminar o roteiro');
+  }
+
+  }
 
   async insertUser(user: User) {
     const { data, error } = await this.supabaseClient
       .from('users')
       .insert(user)
       .single();
-  
+
     if (error) {
       return null;
     }
     console.log(data);
     return data;
   }
-  
+
   async updateUser(user: User, id: number): Promise<void> {
     const { data, error } = await this.supabaseClient
       .from('users')
@@ -292,10 +312,10 @@ export class SupabaseService {
   }
 
 
-  
+
   async deleteUser(id: number): Promise<void> {
     await this.supabaseClient.from('users').delete().eq('user_id', id);
-  }  
+  }
 
 }
 
