@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { User } from './user';
 import { Roteiro } from './roteiro';
+import { Pontodeinteresse } from './pontosdeinteresse';
 import { ProfileIdService } from '../services/profile-id.service';
 
 @Injectable({
@@ -17,6 +18,25 @@ export class SupabaseService {
     this.supabaseClient = createClient(this.supabaseUrl, this.supabaseKey);
   }
 
+  async getPontosdeInteresse(id_interno:number) : Promise<Pontodeinteresse[]> {
+
+    const roteiroID = await this.getRoteiroIDByInternID(id_interno);
+
+    const { data, error } = await this.supabaseClient
+    .from('pontosdeinteresse')
+    .select('*')
+    .eq('roteiro_id', roteiroID)
+    .order('ponto_id', { ascending: true });
+
+  if (error) {
+    console.log("deu não amigo");
+    return [];
+  }
+
+  return data as Pontodeinteresse[];
+
+  }
+  
   async getUsers(): Promise<User[]> {
     const { data, error } = await this.supabaseClient
       .from('users')
@@ -67,7 +87,7 @@ export class SupabaseService {
     .single();
 
     const roteiroNovo = {
-      nomeRoteiro: "funciona",
+      nomeRoteiro: data.nomeRoteiro,
       user_id: this.profileid.idS,
       destinoC: data.destinoC,
       destinoP: data.destinoP,
@@ -85,13 +105,13 @@ export class SupabaseService {
 
   }
 
-  async updateRoteiro(roteiro: Roteiro): Promise<void> {
+  async updateNomeRoteiro(id_roteiroI: number, novoNome: string): Promise<void> {
     const { data, error } = await this.supabaseClient
       .from('roteiros')
       .update({
-        nomeRoteiro: roteiro.nomeRoteiro,
+        nomeRoteiro: novoNome,
       })
-      .eq('roteiro_id', roteiro.roteiro_id);
+      .eq('id_interno', id_roteiroI);
 
     if (error) {
       console.error(error);
@@ -171,10 +191,51 @@ export class SupabaseService {
     return data;
   }
 
+  async getRoteiroNameByInternID(idInterno: number): Promise<string> {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .select('nomeRoteiro')
+      .eq('id_interno', idInterno)
+      .single();
+
+    if (error) {
+      throw error
+    }
+
+    return data.nomeRoteiro;
+  }
+
+  async getRoteiroIDByInternID(idInterno: number): Promise<number> {
+    const { data, error } = await this.supabaseClient
+      .from('roteiros')
+      .select('roteiro_id')
+      .eq('id_interno', idInterno)
+      .single();
+
+    if (error) {
+      throw error
+    }
+
+    return data.roteiro_id;
+  }
+
   async insertRoteiro(roteiro: Roteiro) {
     const { data, error } = await this.supabaseClient
       .from('roteiros')
       .insert(roteiro)
+      .single();
+  
+    if (error) {
+      return null;
+    }
+    console.log(data);
+    return data;
+  }
+
+  async insertPontodeInteresse(pontodeinteresse: Pontodeinteresse) {
+    const { data, error } = await this.supabaseClient
+      .from('pontosdeinteresse')
+      .insert(pontodeinteresse)
       .single();
   
     if (error) {
@@ -190,7 +251,7 @@ export class SupabaseService {
       .update({
         partilhado: true,
       })
-      .eq('roteiro_id', id);
+      .eq('id_interno', id);
 
     if (error) {
       console.error(error);

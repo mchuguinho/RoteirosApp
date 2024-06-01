@@ -64,7 +64,6 @@ export class BiblioPage implements OnInit, AfterViewInit {
     }
   }
 
-
   async removerRoteiro(id: number) {
     const modal = await this.modalController.create({
       component: ConfirmModalComponent,
@@ -72,7 +71,7 @@ export class BiblioPage implements OnInit, AfterViewInit {
         title: 'Confirmação',
         message: 'Tem certeza que deseja remover este Roteiro?',
       },
-      breakpoints: [0, 0.3, 0.5, 0.8],
+      breakpoints: [0, 0.3, 0.5, 0.5],
       initialBreakpoint: 0.3
     });
   
@@ -84,6 +83,11 @@ export class BiblioPage implements OnInit, AfterViewInit {
       await this.getRoteiros();
       this.fecharForms();
     }
+  }
+  
+  goRoteiro(id_interno: number){
+
+    this.router.navigateByUrl('/roteiro/' + id_interno)
   }
 
   fecharForms() {

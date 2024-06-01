@@ -23,6 +23,7 @@ export class DiscoveryPage implements OnInit {
   modalTitle: string;
   idT : number;
   novoRoteiro = false;
+  public results: Roteiro[];
 
   constructor(
     private router: Router,
@@ -33,6 +34,7 @@ export class DiscoveryPage implements OnInit {
   ) {
 
     this.roteiros = [];
+    this.results = [...this.roteiros]
     this.modalTitle = '';
     this.roteiro = {
       user_id: this.profileid.idS,
@@ -51,14 +53,23 @@ export class DiscoveryPage implements OnInit {
   ngOnInit() {
   }
 
+  handleInput(event : any) {
+    const query = event.target.value.toLowerCase();
+    this.results = this.roteiros.filter(roteiro => 
+      roteiro.nomeRoteiro.toLowerCase().includes(query)
+    );
+  }
+
   async ionViewWillEnter() {
     await this.getRoteiros();
+    this.results= this.roteiros;
   }
 
   async getRoteiros() {
     this.isLoadingRoteiros = true;
     try {
       this.roteiros = await this.supabaseService.getRoteirosPartilhados();
+      this.results = this.roteiros;
     } catch (error) {
       console.error('Erro ao carregar roteiro:', error);
     } finally {

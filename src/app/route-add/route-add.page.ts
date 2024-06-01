@@ -73,7 +73,7 @@ export class RouteAddPage implements OnInit {
 
       this.showToast('Roteiro criado com sucesso');
 
-      this.router.navigateByUrl('/roteiro/' + this.profileid.lastRoteiroInternoID + this.destinoC);
+      this.router.navigateByUrl('/roteiro/' + this.profileid.lastRoteiroInternoID );
 
     } catch (error) {
       console.error('Erro durante o registro:', error);

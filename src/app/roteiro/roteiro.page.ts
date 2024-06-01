@@ -1,20 +1,113 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
+import { ProfileIdService } from '../services/profile-id.service';
+import { SupabaseService } from '../services/supabase.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Roteiro } from '../services/roteiro';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { Pontodeinteresse } from '../services/pontosdeinteresse';
+
 
 @Component({
   selector: 'app-roteiro',
   templateUrl: './roteiro.page.html',
   styleUrls: ['./roteiro.page.scss'],
 })
-export class RoteiroPage implements OnInit {
+export class RoteiroPage implements OnInit, AfterViewInit {
 
-  public roteiro!: string;
+  isLoadingPontos = false;
+  pontosdeinteresse: Pontodeinteresse[];
+  pontodeinteresse: Pontodeinteresse;
+  modalTitle: string;
+
+  public intern_ID_inString!: string;
+  public nome !: string;
   public cidade!: string;
+  public internoIDP!: number;
   private activatedRoute = inject(ActivatedRoute);
-  constructor() {}
+  slidingItem: any;
+  name:string;
 
-  ngOnInit() {
-    this.roteiro = this.activatedRoute.snapshot.paramMap.get('id') as string;
+  constructor(   
+    private router: Router,
+    private supabaseService: SupabaseService,
+    private modalController: ModalController,
+    private profileid: ProfileIdService,
+    private toastController: ToastController) {
+
+      this.name="";
+      this.pontosdeinteresse = [];
+      this.modalTitle = '';
+      this.isLoadingPontos = true;
+      this.pontodeinteresse= {
+        roteiro_id: this.profileid.lastRoteiroInternoID,
+        nome_local: "",
+        endereco_local: "",
+        custo_acesso: 0,
+        custo_transporte: 0,
+        curiosidade: "",
+        sujestao: "",
+        fotografia: ""
+      };
+      this.profileid.lastRoteiroInternoID=parseInt(this.intern_ID_inString);
+
+    }
+
+  async ngOnInit() {
+    
+    this.intern_ID_inString = this.activatedRoute.snapshot.paramMap.get('id') as string;
+
+    this.profileid.lastRoteiroInternoID=parseInt(this.intern_ID_inString);
+    this.internoIDP=this.profileid.lastRoteiroInternoID;
+
+    console.log('ID do Roteiro:', this.profileid.lastRoteiroInternoID + " id interno suposto: " + this.intern_ID_inString);
+    this.nome = await this.supabaseService.getRoteiroNameByInternID(this.profileid.lastRoteiroInternoID);
+  }
+
+  async ionViewWillEnter() {
+    await this.getPontosdeinteresse();
+  }
+
+  async nomeMudou(event: any){
+
+    const novoNome = event.detail.value;
+
+    await this.supabaseService.updateNomeRoteiro(this.profileid.lastRoteiroInternoID, novoNome);
+
+  }
+
+  async getPontosdeinteresse() {
+    this.isLoadingPontos = true;
+    try {
+      this.pontosdeinteresse = await this.supabaseService.getPontosdeInteresse(this.profileid.lastRoteiroInternoID);
+    } catch (error) {
+      console.error('Erro ao carregar Pontos de Interesse:', error);
+    } finally {
+      this.isLoadingPontos = false;
+    }
+  }
+
+  async partilharRoteiro(){
+
+    await this.supabaseService.partilharRoteiro(this.profileid.lastRoteiroInternoID);
+    this.showToast("Roteiro Partilhado com sucesso!!")
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    await toast.present();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.slidingItem.open('end');
+      setTimeout(() => {
+        this.slidingItem.close();
+      }, 500); // Fechar após meio segundo
+    }, 500); // Abrir após meio segundo
   }
 
 }

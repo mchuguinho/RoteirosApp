@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home" text="Voltar" color="dark"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-text class="ion-text-center">
-        <h1>Roteiro "Paris"</h1>
+        <h1>Roteiro {{nomeP}}</h1>
       </ion-text>
     </ion-toolbar>
   </ion-header>
@@ -22,10 +22,11 @@
       </ion-col>
     </ion-row>
 
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input class="custom-input" label="Nome do Local" labelPlacement="stacked" placeholder="Insira o nome do local"
+          <ion-input class="custom-input" label="Nome do Local" labelPlacement="stacked" formControlName="nome_local" placeholder="Insira o nome do local"
            ></ion-input>
         </ion-item>
       </ion-col>
@@ -34,7 +35,7 @@
     <ion-row>
       <ion-col>
         <ion-item class="last">
-          <ion-input class="custom-input" label="Endereço" labelPlacement="stacked" placeholder="Insira o endereço do local"
+          <ion-input class="custom-input" label="Endereço" labelPlacement="stacked" formControlName="endereco" placeholder="Insira o endereço do local"
             ></ion-input>
         </ion-item>
       </ion-col>
@@ -43,7 +44,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input class="custom-input" type="number" label="Custo" labelPlacement="stacked" placeholder="Insira o custo para a visita ao local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
+          <ion-input class="custom-input" type="number" label="Custo" labelPlacement="stacked"  formControlName="custo" placeholder="Insira o custo para a visita ao local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
            ></ion-input>
         </ion-item>
       </ion-col>
@@ -52,7 +53,7 @@
     <ion-row>
       <ion-col>
         <ion-item class="last">
-          <ion-input class="custom-input" type="number" label="Custo de Transporte" labelPlacement="stacked" placeholder="Insira o custo de transporte para o local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
+          <ion-input class="custom-input" type="number" label="Custo de Transporte" labelPlacement="stacked" formControlName="custoT"placeholder="Insira o custo de transporte para o local" value="0.00" step="0.01" (ionChange)="formataNumero($event)"
             ></ion-input>
         </ion-item>
       </ion-col>
@@ -61,7 +62,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input class="custom-input" label="Curiosidade" labelPlacement="stacked" placeholder="Escreva uma breve descrição do Local "
+          <ion-input class="custom-input" label="Curiosidade" labelPlacement="stacked" formControlName="curiosidade" placeholder="Escreva uma breve descrição do Local "
             ></ion-input>
         </ion-item>
       </ion-col>
@@ -70,7 +71,7 @@
     <ion-row>
       <ion-col>
         <ion-item class="last">
-          <ion-input class="custom-input" label="Sugestão" labelPlacement="stacked" placeholder="Escreva uma sugestão sobre o local"
+          <ion-input class="custom-input" label="Sugestão" labelPlacement="stacked" formControlName="sujestao" placeholder="Escreva uma sugestão sobre o local"
             ></ion-input>
         </ion-item>
       </ion-col>
@@ -92,8 +93,12 @@
 
     <ion-row class="ion-text-center ion-justify-content-center ion-align-items-center">
       <ion-col>
-        <ion-button fill="solid" shape="round" size="large">Submeter</ion-button>
+        <ion-button fill="solid" [disabled]="!addForm.valid" (click)="onSubmit()" type="submit" shape="round" size="large">Submeter</ion-button>
       </ion-col>
     </ion-row>
+    
+    </form> 
+
   </ion-grid>
+
 </ion-content>

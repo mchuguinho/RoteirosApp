@@ -37,7 +37,7 @@
     -->
       <ion-row *ngFor="let roteiro of roteiros">
         <ion-col size="9">
-            <ion-button expand="block" class="i-text shadow">
+            <ion-button expand="block" class="i-text shadow" (click)="goRoteiro(roteiro.id_interno)">
               <ion-grid>
                 <ion-row>
                     <p class="text nome-rot">{{ roteiro.nomeRoteiro}}</p>

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Biblioteca de Roteiros</ion-title>
+    <ion-title>Descobrir</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,8 +11,11 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Descobrir</ion-title>
+      <ion-title size="large">Descobrir</ion-title>
     </ion-toolbar>
   </ion-header>
+
+<ion-searchbar animated="true" debounce=250 placeholder="Encontre um Roteiro" show-clear-button="focus" (ionInput)="handleInput($event)"></ion-searchbar>
 
  <div id="container" class="divv">
     
@@ -51,11 +54,27 @@
             </ion-label>
           </ion-item-option>
           </ion-item-sliding>
-
-
-
       </ion-list>
--->
+      -->
+
+    <ion-grid *ngIf="!isLoadingRoteiros" id="grid">
+      <ion-row *ngFor="let roteiro of results" class="div">
+        <ion-col size="9" >
+                <ion-row>
+                    <p class="text nome-rot">{{ roteiro.nomeRoteiro}}</p>
+                </ion-row>
+                <ion-row>
+                    <p class="text">{{ roteiro.destinoC}}</p>
+                </ion-row>
+        </ion-col>
+        <ion-col size="1">
+          <ion-button fill="solid" class="i-text shadow botao"  (click)="addPartilhadoBiblioteca(roteiro.id_interno)">
+            <ion-icon color="primary" name="add-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
       <ion-list *ngIf="isLoadingRoteiros">
         <ion-item>
           <ion-label color="primary">A carregar roteiros...</ion-label>
