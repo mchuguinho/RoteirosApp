@@ -83,7 +83,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-            <ion-input class="custom-input" label="Fotografia" labelPlacement="stacked" [value]="selectedFileName"
+            <ion-input id="foto"  class="custom-input" label="Fotografia" labelPlacement="stacked" [value]="selectedFileName"
               [readonly]="true" name="text"></ion-input>
           <ion-button slot="end" [color]="iconColor" fill="clear" class="botao-camera" (click)="fileInput.click()">
             <ion-icon slot="icon-only" [name]="iconName">

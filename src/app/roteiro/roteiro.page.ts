@@ -88,7 +88,6 @@ export class RoteiroPage implements OnInit, AfterViewInit {
   }
 
   async partilharRoteiro(){
-
     await this.supabaseService.partilharRoteiro(this.profileid.lastRoteiroInternoID);
     this.showToast("Roteiro Partilhado com sucesso!!")
   }

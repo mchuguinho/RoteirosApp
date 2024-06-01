@@ -82,7 +82,6 @@ export class DiscoveryPage implements OnInit {
     this.supabaseService.letMeCopyThatRoteiro(id_interno);
     await this.showToast("Roteiro Adicionado com sucesso na Biblioteca!!");
 
-
   }
 
   async removerRoteiro(id: number) {
