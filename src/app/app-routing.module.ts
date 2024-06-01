@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'roteiro/:id',
     loadChildren: () => import('./roteiro/roteiro.module').then( m => m.RoteiroPageModule)
   },
@@ -43,6 +39,11 @@ const routes: Routes = [
     path: 'discovery',
     loadChildren: () => import('./discovery/discovery.module').then( m => m.DiscoveryPageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+
 
 
 ];
