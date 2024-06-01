@@ -33,6 +33,7 @@ export class DiscoveryPage implements OnInit {
     private toastController: ToastController
   ) {
 
+
     this.roteiros = [];
     this.results = [...this.roteiros]
     this.modalTitle = '';
@@ -77,7 +78,7 @@ export class DiscoveryPage implements OnInit {
     }
   }
 
-  async addPartilhadoBiblioteca(id_interno : number){
+  async addPartilhadoBiblioteca(id_interno : number, event : Event){
 
     this.supabaseService.letMeCopyThatRoteiro(id_interno);
     await this.showToast("Roteiro Adicionado com sucesso na Biblioteca!!");

@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background-image" [fullscreen]="true">
+<ion-content [fullscreen]="true" class="background-image">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Descobrir</ion-title>
@@ -70,8 +70,8 @@
                 </ion-row>
         </ion-col>
         <ion-col size="3">
-          <ion-button fill="solid" class="i-text shadow botao"  (click)="addPartilhadoBiblioteca(roteiro.id_interno)">
-            <ion-icon color="dark" size="large" name="add-circle-outline"></ion-icon>
+          <ion-button fill="solid" class="i-text shadow botao" (click)="addPartilhadoBiblioteca(roteiro.id_interno, $event)">
+            <ion-icon size="large" [color]="iconColor" [name]="iconName"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
