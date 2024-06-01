@@ -15,6 +15,8 @@ export class DiscoveryPage implements OnInit {
 
   @ViewChild('slidingItem') slidingItem!: IonItemSliding;
 
+  iconName : string = "add-circle-outline";
+  iconColor : string = "dark";
   isLoadingRoteiros = false;
   roteiros: Roteiro[];
   roteiro: Roteiro;
@@ -94,6 +96,15 @@ export class DiscoveryPage implements OnInit {
   fecharForms() {
 
     this.modalTitle = '';
+  }
+
+  saveRoteiro(event : Event) {
+    const button = event.target as HTMLElement;
+    const icon = button.querySelector('ion-icon');
+    if (icon) {
+      icon.name = 'checkmark-circle';
+      icon.color = 'success';
+    }
   }
   
   ngAfterViewInit() {
