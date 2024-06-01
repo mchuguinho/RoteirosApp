@@ -2,6 +2,12 @@ ion-menu-button {
     color: var(--ion-color-primary);
   }
   
+  #title {
+    font-weight: bold;
+    font-size: 35px;
+    text-shadow: 2px 2px 5px rgb(160, 160, 160);
+  }
+
   #container {
     text-align: center;
     position: absolute;
