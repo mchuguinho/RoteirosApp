@@ -276,21 +276,22 @@ export class SupabaseService {
     return data;
   }
   
-  async updateUser(user: User): Promise<void> {
+  async updateUser(user: User, id: number): Promise<void> {
     const { data, error } = await this.supabaseClient
       .from('users')
       .update({
-        nome: user.name,
-        email: user.email,
+        name: user.name,
         password: user.password
       })
-      .eq('user_id', user.user_id);
+      .eq('user_id', id);
 
     if (error) {
       console.error(error);
       throw new Error('Erro ao atualizar user');
     }
   }
+
+
   
   async deleteUser(id: number): Promise<void> {
     await this.supabaseClient.from('users').delete().eq('user_id', id);

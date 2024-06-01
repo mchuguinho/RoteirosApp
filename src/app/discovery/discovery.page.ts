@@ -56,7 +56,7 @@ export class DiscoveryPage implements OnInit {
   handleInput(event : any) {
     const query = event.target.value.toLowerCase();
     this.results = this.roteiros.filter(roteiro => 
-      roteiro.nomeRoteiro.toLowerCase().includes(query)
+      roteiro.destinoP.toLowerCase().includes(query)
     );
   }
 
@@ -80,6 +80,8 @@ export class DiscoveryPage implements OnInit {
   async addPartilhadoBiblioteca(id_interno : number){
 
     this.supabaseService.letMeCopyThatRoteiro(id_interno);
+    await this.showToast("Roteiro Adicionado com sucesso na Biblioteca!!");
+
 
   }
 
@@ -116,6 +118,14 @@ export class DiscoveryPage implements OnInit {
       icon.name = 'checkmark-circle';
       icon.color = 'success';
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    await toast.present();
   }
   
   ngAfterViewInit() {

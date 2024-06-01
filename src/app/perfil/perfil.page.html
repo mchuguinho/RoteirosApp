@@ -1,0 +1,32 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-menu-button></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-title size="large">Alterar informações do Perfil</ion-title>
+
+  <form [formGroup]="userUpdateForm" (ngSubmit)="onSubmit()">
+
+    <ion-input  class="title" label="Nome" formControlName="name" value="{{nome}}"></ion-input>
+
+
+    <ion-input  class="title" label="Password" type="{{passwordType}}" formControlName="password" value="{{password}}"></ion-input>
+
+  <ion-button fill="solid" shape="round" size="small" (click)="showPass()"><ion-icon name="{{typeIcon}}"></ion-icon></ion-button>
+
+
+    <ion-button fill="solid" shape="round" size="large" (click)="onSubmit()" type="submit"> Guardar Alterações</ion-button>
+  
+
+  </form>
+
+
+</ion-content>

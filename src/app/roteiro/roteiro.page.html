@@ -2,6 +2,13 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+
+      <ion-grid>
+        <ion-row>
+          <ion-input  class="title" label="Roteiro" placeholder="{{nome}}" (ionChange)="nomeMudou($event)"></ion-input>
+        </ion-row>
+      </ion-grid>
+      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

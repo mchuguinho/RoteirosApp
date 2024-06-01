@@ -89,7 +89,7 @@ export class RegistoPage implements OnInit, AfterViewInit {
       const formValues = this.registoForm.value;
 
       const user = {
-        name: formValues.name,
+        name: formValues.name + " " + formValues.apelido,
         email: formValues.email,
         password: formValues.password
       };

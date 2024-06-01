@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'discovery',
     loadChildren: () => import('./discovery/discovery.module').then( m => m.DiscoveryPageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+
 
 
 ];
