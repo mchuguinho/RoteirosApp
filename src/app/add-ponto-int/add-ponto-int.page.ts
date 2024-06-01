@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RoteirosService, Roteiro } from '../services/roteiros.service';
+import { PaisesService } from '../services/paises.service';
+import { SupabaseService } from '../services/supabase.service';
+import { ProfileIdService } from '../services/profile-id.service';
+import { ToastController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-ponto-int',
@@ -11,8 +18,31 @@ export class AddPontoIntPage implements OnInit {
   iconName : string = "camera";
   iconColor : string = "primary";
   custo: number = 0;
+  public addForm: FormGroup;
+  estaSubmeter = false;
+  public nomeP = "";
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private supabaseService: SupabaseService,
+    private profileid: ProfileIdService,
+    private toastController: ToastController
+  ) {
+
+    this.addForm = this.formBuilder.group({
+      nome_local: ['', [Validators.required, Validators.minLength(2)]],
+      endereco: ['', [Validators.required, Validators.minLength(2)]],
+      custo: ['', [Validators.required, Validators.minLength(2)]],
+      custoT: ['', [Validators.required, Validators.minLength(2)]],
+      curiosidade: ['', [Validators.required, Validators.minLength(2)]],
+      sujestao: ['', [Validators.required]]
+    });
+    
+
+   }
+
+  
 
   formataNumero(e: any, separador: string = '.', decimais: number = 2) {
     let a:any = e.value.split('');
@@ -43,7 +73,66 @@ export class AddPontoIntPage implements OnInit {
     }, 1000); 
   }
 
-  ngOnInit() {
+  async onSubmit(){
+
+    if (this.estaSubmeter) {
+
+      return;
+
+    }
+
+    this.estaSubmeter = true;
+
+    if (this.addForm.valid) {
+      const formValues = this.addForm.value;
+
+      console.log(this.profileid.lastRoteiroInternoID);
+      const id = await this.supabaseService.getRoteiroIDByInternID(this.profileid.lastRoteiroInternoID);
+      console.log("este é o id do roteiro: " + id);
+
+      const pontodeinteresse = {
+        roteiro_id: id,
+        nome_local: formValues.nome_local,
+        endereco_local: formValues.endereco,
+        custo_acesso: formValues.custo,
+        custo_transporte: formValues.custoT,
+        curiosidade: formValues.curiosidade,
+        sujestao: formValues.sujestao
+      };
+
+      try {
+        // Inserir Ponto de Interesse no Supabase
+        await this.supabaseService.insertPontodeInteresse(pontodeinteresse);
+        this.showToast('Ponto de interesse registrado com sucesso');
+
+        console.log('PDI registrado com sucesso');
+        // mandar o user para a biblioteca
+      
+      } catch (error) {
+        console.error('Erro durante o registro:', error);
+        await this.showToast('Erro ao registrar Ponto de Interesse');
+      }
+    } else {
+      // Marcar todos os campos como tocados para exibição das mensagens de erro
+      Object.values(this.addForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    }
+
+  }
+
+  async ngOnInit() {
+
+   this.nomeP = await this.supabaseService.getRoteiroNameByInternID(this.profileid.lastRoteiroInternoID);
+
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 5000
+    });
+    await toast.present();
   }
 
 }

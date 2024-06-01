@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
@@ -34,7 +34,8 @@ const routes: Routes = [
   {
     path: 'add-ponto-int',
     loadChildren: () => import('./add-ponto-int/add-ponto-int.module').then( m => m.AddPontoIntPageModule)
-  },  {
+  },
+  {
     path: 'biblio',
     loadChildren: () => import('./biblio/biblio.module').then( m => m.BiblioPageModule)
   },

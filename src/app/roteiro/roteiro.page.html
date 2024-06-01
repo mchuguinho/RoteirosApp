@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="biblio" text="Voltar" color="dark"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -9,13 +9,54 @@
   <ion-content [fullscreen]="true" class="ion-padding">
     <ion-header collapse="condense">
       <ion-toolbar>
-        <ion-text class="ion-text-center">
-          <h1 id="title">Roteiro {{roteiro}}</h1>
-        </ion-text>
+
+          <ion-grid>
+            <ion-row>
+              <ion-input  class="title" label="Roteiro" placeholder="{{nome}}" (ionChange)="nomeMudou($event)"></ion-input>
+            </ion-row>
+          </ion-grid>
+
       </ion-toolbar>
     </ion-header>
 
-    <ion-grid>
+    <ion-grid id="grid">
+
+    <h2>Pontos de Interesse</h2>
+
+    <ion-row *ngFor="let pontodeinteresse of pontosdeinteresse">
+      <ion-col size="9">
+          <ion-button expand="block" class="i-text shadow" >
+            <ion-grid>
+              <ion-row>
+                  <p class="text nome-rot">{{ pontodeinteresse.nome_local}}</p>
+              </ion-row>
+            </ion-grid>
+          </ion-button>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button expand="block" fill="solid" class="i-text shadow" >
+          <ion-icon name="bus"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button class="i-text shadow" type="submit" expand="block" fill="solid" size="big" routerLink="/add-ponto-int">+</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-list *ngIf="isLoadingPontos">
+      <ion-item>
+        <ion-label color="primary">A carregar Pontos de Interesse...</ion-label>
+        <ion-spinner name="circles" color="primary"></ion-spinner>
+      </ion-item>
+    </ion-list>
+
+    
+
+
+
+<!--
       <ion-row>
         <ion-col size="2">
           <div class="main-hotspot">
@@ -76,23 +117,22 @@
           </div>
         </ion-col>
       </ion-row>
-      
+      -->
 
-      <div class="bottom">
-        <ion-row>
+
+        <ion-row class="bottom">
           <ion-col size="12">
             <ion-button expand="block" fill="solid" shape="round" class="i-text">
               Ver rota
             </ion-button>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="bottom">
           <ion-col size="12">
-            <ion-button expand="block" fill="solid" shape="round" class="i-text">
+            <ion-button expand="block" fill="solid" shape="round" class="i-text" (click)="partilharRoteiro()">
               Partilhar roteiro
             </ion-button>
           </ion-col>
         </ion-row>
-      </div>
     </ion-grid>
 </ion-content>
