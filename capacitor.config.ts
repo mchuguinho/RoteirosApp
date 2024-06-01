@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'pt.ihn.roteiro',
   appName: 'roteiros',
   webDir: 'www'
 };
