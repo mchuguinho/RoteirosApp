@@ -1,10 +1,41 @@
 .divv{
 
-padding: 10px;
+padding: 20px;
 
+}
+
+.background-image{
+    --background:  url(../../assets/imgs/back.png) 100% 100%/65% 27% no-repeat;
+  
+}
+
+.shadow {
+    --box-shadow: 2px 2px 5px rgb(160, 160, 160);
 }
 
 ion-title{
 
     justify-content: center;
 }
+
+.pad {
+    margin-top: 10%;
+}
+
+  .i-text {
+    height: 70px;
+  }
+
+  .text {
+    margin: 5px;
+    text-shadow: 2px 2px 5px rgb(160, 160, 160);
+  }
+
+  .nome-rot {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .plus {
+    font-size: 30px;
+  }

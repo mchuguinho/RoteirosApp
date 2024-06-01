@@ -26,3 +26,36 @@ ion-menu-button {
   #container a {
     text-decoration: none;
   }
+
+  ion-row {
+    margin: 0 auto;
+    width: 85%;
+  }
+
+  .main-hotspot {
+    margin: 0 auto;
+    background-color: #1AE4D8;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    box-shadow: 2px 2px 5px rgb(160, 160, 160);
+    margin-bottom: 8%;
+  }
+
+  .text {
+    color: black !important;
+  }
+
+  .i-text {
+    margin: 0 auto !important;
+    font-size: 22px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgb(160, 160, 160);
+  }
+
+  .bottom {
+    margin-top: 100px;
+  }
+

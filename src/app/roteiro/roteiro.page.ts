@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RoteiroPage implements OnInit {
 
   public roteiro!: string;
+  public cidade!: string;
   private activatedRoute = inject(ActivatedRoute);
   constructor() {}
 

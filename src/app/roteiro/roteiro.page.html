@@ -1,10 +1,10 @@
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="biblio" text="Voltar" color="dark"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
   
   <ion-content [fullscreen]="true" class="ion-padding">
     <ion-header collapse="condense">
@@ -14,13 +14,83 @@
     </ion-header>
 
     <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <div class="main-hotspot">
+            <ion-text class="i-text">
+              <p class="text">1</p>
+            </ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="8">
+          <div class="main-hotspot center-text" color="primary">
+            <ion-text class="i-text">
+              <p class="text">Notre Dame</p>
+            </ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="2">
+          <div class="main-hotspot">
+            <ion-icon name="bus" size="large"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2">
+          <div class="main-hotspot">
+            <ion-text class="i-text">
+              <p class="text">2</p>
+            </ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="8">
+          <div class="main-hotspot center-text" color="primary">
+            <ion-text class="i-text">
+              <p class="text">Torre Eiffel</p>
+            </ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="2">
+          <div class="main-hotspot">
+            <ion-icon name="bus" size="large"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2">
+          <div class="main-hotspot">
+            <ion-text class="i-text">
+              <p class="text">3</p>
+            </ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="10">
+          <div class="main-hotspot center-text" color="primary">
+            <ion-text class="i-text">
+              <p class="text">+</p>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
       
+
+      <div class="bottom">
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="block" fill="solid" shape="round" class="i-text">
+              Ver rota
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="block" fill="solid" shape="round" class="i-text">
+              Partilhar roteiro
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
     </ion-grid>
-
-
-  <div id="container">
-    <strong class="capitalize">{{ roteiro }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-    <p>AHAHAHA</p>
-  </div>
 </ion-content>

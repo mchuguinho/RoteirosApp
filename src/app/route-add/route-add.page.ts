@@ -66,14 +66,14 @@ export class RouteAddPage implements OnInit {
     try {
 
       // Inserir roteiro no Supabase
-      await  this.supabaseService.insertRoteiro(roteiro)
+      await  this.supabaseService.insertRoteiro(roteiro);
       this.profileid.lastRoteiroInternoID = roteiro.id_interno;
 
       console.log(this.profileid.lastRoteiroInternoID + "  == " + roteiro.id_interno);
 
       this.showToast('Roteiro criado com sucesso');
 
-      this.router.navigateByUrl('/roteiro/' + this.profileid.lastRoteiroInternoID);
+      this.router.navigateByUrl('/roteiro/' + this.profileid.lastRoteiroInternoID + this.destinoC);
 
     } catch (error) {
       console.error('Erro durante o registro:', error);

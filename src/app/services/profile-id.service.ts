@@ -10,7 +10,7 @@ export class ProfileIdService {
   public roteiroPartilhadoAdicionado: number;
 
   constructor() { 
-    this.idS=0;
+    this.idS=64;
     this.lastRoteiroInternoID = 0;
     this.roteiroPartilhadoAdicionado = 0;
   }
