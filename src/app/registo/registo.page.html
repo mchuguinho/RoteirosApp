@@ -113,15 +113,4 @@
 
   </form>
 
-  <ion-card>
-    <ion-list *ngIf="!isLoadingUsers">
-      <ion-item-sliding #slidingItem *ngFor="let user of users">
-        <ion-item>
-          <ion-label>{{ user.name }} + {{user.user_id}}</ion-label>
-          <ion-note slot="end">{{user.email}}</ion-note>
-        </ion-item>
-        </ion-item-sliding>
-    </ion-list>
-  </ion-card>
-
 </ion-content>

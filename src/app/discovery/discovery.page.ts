@@ -33,6 +33,7 @@ export class DiscoveryPage implements OnInit {
     private toastController: ToastController
   ) {
 
+
     this.roteiros = [];
     this.results = [...this.roteiros]
     this.modalTitle = '';
@@ -77,10 +78,17 @@ export class DiscoveryPage implements OnInit {
     }
   }
 
-  async addPartilhadoBiblioteca(id_interno : number){
+  async addPartilhadoBiblioteca(id_interno : number, event : Event){
 
     this.supabaseService.letMeCopyThatRoteiro(id_interno);
+    const button = event.target as HTMLElement;
 
+    const icon = button.querySelector('ion-icon');
+    if(icon) {
+      this.iconColor = "success";
+      this.iconName = "checkmark-circle";
+    }
+    
   }
 
   async removerRoteiro(id: number) {
