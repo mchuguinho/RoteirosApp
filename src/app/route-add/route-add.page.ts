@@ -5,7 +5,6 @@ import { PaisesService } from '../services/paises.service';
 import { SupabaseService } from '../services/supabase.service';
 import { ProfileIdService } from '../services/profile-id.service';
 import { ToastController } from '@ionic/angular';
-import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
 import { ViewWillEnter } from '@ionic/angular'
 
 @Component({
@@ -13,7 +12,7 @@ import { ViewWillEnter } from '@ionic/angular'
   templateUrl: './route-add.page.html',
   styleUrls: ['./route-add.page.scss'],
 })
-export class RouteAddPage implements OnInit, ViewWillEnter {
+export class RouteAddPage implements OnInit{
   
   podes = false;
   counterID = 1;
@@ -34,11 +33,6 @@ export class RouteAddPage implements OnInit, ViewWillEnter {
         this.paises = data.paises;
       });  
   }
-
-  ionViewWillEnter(): void {
-    const options: OrientationLockOptions = { orientation: 'portrait' };
-    ScreenOrientation.lock(options);
-}
 
   onPaisChange(event: any) {
     const selectedPais = event.detail.value;

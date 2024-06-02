@@ -79,6 +79,7 @@ export class BiblioPage implements OnInit, AfterViewInit {
   
     const { data } = await modal.onWillDismiss();
     if (data) {
+      console.log(id);
       await this.supabaseService.deleteRoteiro(id);
       await this.getRoteiros();
       this.fecharForms();
