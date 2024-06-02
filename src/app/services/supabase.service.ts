@@ -283,6 +283,21 @@ export class SupabaseService {
 
   }
 
+  async deletePontodeinteresse(id: number): Promise<void> {
+
+
+  const { error } = await this.supabaseClient
+    .from('pontosdeinteresse')
+    .delete()
+    .eq('ponto_id', id);
+
+  if (error) {
+    console.error('Erro ao eliminar PDI:', error);
+    throw new Error('Não deu para eliminar o PDI');
+  }
+
+  }
+
   async insertUser(user: User) {
     const { data, error } = await this.supabaseClient
       .from('users')
