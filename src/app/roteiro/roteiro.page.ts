@@ -109,4 +109,22 @@ export class RoteiroPage implements OnInit, AfterViewInit {
     }, 500); // Abrir após meio segundo
   }
 
+  async navigate() {
+    const id_interno = this.profileid.lastRoteiroInternoID; // Replace with your actual id_interno value
+    const pontos = await this.supabaseService.getPontosdeInteresse(id_interno);
+    const addresses = pontos.map(ponto => ponto.endereco_local); // Assuming 'endereco' is the field with address
+
+    if (addresses.length < 2) {
+      console.error('You need at least two addresses to create a route.');
+      return;
+    }
+
+    const origin = encodeURIComponent(addresses[0]);
+    const destination = encodeURIComponent(addresses[addresses.length - 1]);
+    const waypoints = addresses.slice(1, -1).map(addr => encodeURIComponent(addr)).join('|');
+
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints}`;
+    window.open(url, '_blank'); // Open in a new tab
+  }
+
 }

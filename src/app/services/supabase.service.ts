@@ -311,11 +311,10 @@ export class SupabaseService {
     }
   }
 
-
-
   async deleteUser(id: number): Promise<void> {
     await this.supabaseClient.from('users').delete().eq('user_id', id);
   }
+
 
 }
 
