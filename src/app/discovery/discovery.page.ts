@@ -67,7 +67,7 @@ export class DiscoveryPage implements OnInit, ViewWillEnter {
   async ionViewWillEnter() {
     await this.getRoteiros();
     this.results= this.roteiros;
-    const options: OrientationLockOptions = { orientation: 'landscape' };
+    const options: OrientationLockOptions = { orientation: 'portrait' };
     ScreenOrientation.lock(options);
   }
 

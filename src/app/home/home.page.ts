@@ -17,10 +17,10 @@ export class HomePage implements OnInit, ViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    const options: OrientationLockOptions = { orientation: 'landscape' };
+    const options: OrientationLockOptions = { orientation: 'portrait' };
     ScreenOrientation.lock(options);
   }
-  
+
   public login() {
     this.router.navigateByUrl('/login');
   }

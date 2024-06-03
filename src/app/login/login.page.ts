@@ -32,7 +32,7 @@ export class LoginPage implements OnInit, ViewWillEnter {
   ngOnInit() { }
 
   ionViewWillEnter(): void {
-    const options: OrientationLockOptions = { orientation: 'landscape' };
+    const options: OrientationLockOptions = { orientation: 'portrait' };
     ScreenOrientation.lock(options);
   }
 
