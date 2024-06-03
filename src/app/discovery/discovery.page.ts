@@ -5,13 +5,16 @@ import { SupabaseService } from '../services/supabase.service';
 import { Router } from '@angular/router';
 import { Roteiro } from '../services/roteiro';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ViewWillEnter } from '@ionic/angular';
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
+
 
 @Component({
   selector: 'app-discovery',
   templateUrl: './discovery.page.html',
   styleUrls: ['./discovery.page.scss'],
 })
-export class DiscoveryPage implements OnInit {
+export class DiscoveryPage implements OnInit, ViewWillEnter {
 
   @ViewChild('slidingItem') slidingItem!: IonItemSliding;
 
@@ -64,6 +67,8 @@ export class DiscoveryPage implements OnInit {
   async ionViewWillEnter() {
     await this.getRoteiros();
     this.results= this.roteiros;
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
   }
 
   async getRoteiros() {

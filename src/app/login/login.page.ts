@@ -6,13 +6,16 @@ import { Router } from '@angular/router';
 import { ProfileIdService } from '../services/profile-id.service';
 import { IonItemSliding } from '@ionic/angular';
 import { User } from '../services/user';
+import { ViewWillEnter } from '@ionic/angular'
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, ViewWillEnter {
   public loginForm: FormGroup;
   idSL: number;
 
@@ -27,6 +30,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() { }
+
+  ionViewWillEnter(): void {
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
+  }
 
   async onSubmit() {
 
