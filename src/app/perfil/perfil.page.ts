@@ -131,6 +131,17 @@ export class PerfilPage implements OnInit {
 
   }
 
+  logout(){
+
+    this.profileid.idS=0;
+    this.profileid.lastRoteiroInternoID=0;
+    this.profileid.roteiroPartilhadoAdicionado=0;
+
+    this.router.navigateByUrl('/home');
+
+
+  }
+
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,

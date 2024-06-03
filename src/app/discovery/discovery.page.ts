@@ -57,7 +57,7 @@ export class DiscoveryPage implements OnInit {
   handleInput(event : any) {
     const query = event.target.value.toLowerCase();
     this.results = this.roteiros.filter(roteiro => 
-      roteiro.destinoP.toLowerCase().includes(query)
+      roteiro.nomeRoteiro.toLowerCase().includes(query)
     );
   }
 

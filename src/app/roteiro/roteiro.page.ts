@@ -127,4 +127,31 @@ export class RoteiroPage implements OnInit, AfterViewInit {
     window.open(url, '_blank'); // Open in a new tab
   }
 
+  async removerPontodeinteresse(id: number) {
+    const modal = await this.modalController.create({
+      component: ConfirmModalComponent,
+      componentProps: {
+        title: 'Confirmação',
+        message: 'Tem certeza que deseja remover este Ponto de Interesse?',
+      },
+      breakpoints: [0, 0.3, 0.5, 0.5],
+      initialBreakpoint: 0.3
+    });
+  
+    await modal.present();
+  
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      console.log(id);
+      await this.supabaseService.deletePontodeinteresse(id);
+      await this.getPontosdeinteresse();
+      this.fecharForms();
+    }
+  }
+
+  fecharForms() {
+
+    this.modalTitle = '';
+  }
+
 }
