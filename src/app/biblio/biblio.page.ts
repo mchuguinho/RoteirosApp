@@ -5,13 +5,15 @@ import { SupabaseService } from '../services/supabase.service';
 import { Router } from '@angular/router';
 import { Roteiro } from '../services/roteiro';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ViewWillEnter } from '@ionic/angular'
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-biblio',
   templateUrl: './biblio.page.html',
   styleUrls: ['./biblio.page.scss'],
 })
-export class BiblioPage implements OnInit, AfterViewInit {
+export class BiblioPage implements OnInit, AfterViewInit, ViewWillEnter {
 
   @ViewChild('slidingItem') slidingItem!: IonItemSliding;
 
@@ -46,11 +48,15 @@ export class BiblioPage implements OnInit, AfterViewInit {
 
    }
 
+   
+
   ngOnInit() {
   }
 
   async ionViewWillEnter() {
     await this.getRoteiros();
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
   }
 
   async getRoteiros() {

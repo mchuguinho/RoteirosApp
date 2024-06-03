@@ -6,13 +6,16 @@ import { SupabaseService } from '../services/supabase.service';
 import { ProfileIdService } from '../services/profile-id.service';
 import { ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ViewWillEnter } from '@ionic/angular';
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
+
 
 @Component({
   selector: 'app-add-ponto-int',
   templateUrl: './add-ponto-int.page.html',
   styleUrls: ['./add-ponto-int.page.scss'],
 })
-export class AddPontoIntPage implements OnInit {
+export class AddPontoIntPage implements OnInit, ViewWillEnter{
 
   selectedFileName: string = "Carregue a sua fotografia";
   iconName : string = "camera";
@@ -42,7 +45,10 @@ export class AddPontoIntPage implements OnInit {
 
    }
 
-  
+   ionViewWillEnter(): void {
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
+  }
 
   formataNumero(e: any, separador: string = '.', decimais: number = 2) {
     let a:any = e.value.split('');
