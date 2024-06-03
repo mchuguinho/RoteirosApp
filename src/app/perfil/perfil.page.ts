@@ -1,17 +1,18 @@
 import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
+import { IonItemSliding, ModalController, ToastController, ViewWillEnter } from '@ionic/angular';
 import { ProfileIdService } from '../services/profile-id.service';
 import { SupabaseService } from '../services/supabase.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation'
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class PerfilPage implements OnInit, ViewWillEnter {
 
 
 
@@ -48,6 +49,11 @@ export class PerfilPage implements OnInit {
 
 
   }
+
+  ionViewWillEnter(){
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
+}
 
   async ngOnInit() {
 

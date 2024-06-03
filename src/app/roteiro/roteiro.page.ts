@@ -6,14 +6,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Roteiro } from '../services/roteiro';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Pontodeinteresse } from '../services/pontosdeinteresse';
-
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation'
+import { ViewWillEnter } from '@ionic/angular'
 
 @Component({
   selector: 'app-roteiro',
   templateUrl: './roteiro.page.html',
   styleUrls: ['./roteiro.page.scss'],
 })
-export class RoteiroPage implements OnInit, AfterViewInit {
+export class RoteiroPage implements OnInit, AfterViewInit, ViewWillEnter {
 
   isLoadingPontos = false;
   pontosdeinteresse: Pontodeinteresse[];
@@ -66,6 +67,8 @@ export class RoteiroPage implements OnInit, AfterViewInit {
 
   async ionViewWillEnter() {
     await this.getPontosdeinteresse();
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
   }
 
   async nomeMudou(event: any){

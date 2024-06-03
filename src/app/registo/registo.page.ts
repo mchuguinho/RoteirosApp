@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SupabaseService } from '../services/supabase.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, ViewWillEnter } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ProfileIdService } from '../services/profile-id.service';
 import { IonItemSliding } from '@ionic/angular';
 import { User } from '../services/user';
+import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation'
 
 @Component({
   selector: 'app-registo',
   templateUrl: './registo.page.html',
   styleUrls: ['./registo.page.scss'],
 })
-export class RegistoPage implements OnInit, AfterViewInit {
+export class RegistoPage implements OnInit, AfterViewInit, ViewWillEnter {
 
   idSR: number;
 
@@ -62,6 +63,9 @@ export class RegistoPage implements OnInit, AfterViewInit {
 
   async ionViewWillEnter() {
     await this.getUsers();
+
+    const options: OrientationLockOptions = { orientation: 'portrait' };
+    ScreenOrientation.lock(options);
   }
 
   async getUsers() {
