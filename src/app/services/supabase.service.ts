@@ -13,6 +13,7 @@ export class SupabaseService {
   private supabaseUrl = 'https://oegblsocdnheewxbpsqu.supabase.co'; // URL copiado no passo acima 
   private supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lZ2Jsc29jZG5oZWV3eGJwc3F1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY5MzU2MDYsImV4cCI6MjAzMjUxMTYwNn0.dg5_v-CpjjwJOaRtGxz9A8MwRH-kDD_RCfIBJiUCnjY'; // anon public copiada no passo acima;
   private supabaseClient: SupabaseClient;
+  toastController: any;
 
   constructor(private profileid: ProfileIdService) {
     this.supabaseClient = createClient(this.supabaseUrl, this.supabaseKey);
@@ -80,6 +81,9 @@ export class SupabaseService {
 
   async letMeCopyThatRoteiro(idinterno: number) {
 
+    var id_roteiroA = await this.getRoteiroIDByInternID(idinterno);
+  
+
     const { data, error } = await this.supabaseClient
       .from('roteiros')
       .select('*')
@@ -96,9 +100,66 @@ export class SupabaseService {
 
     };
 
+    
+
     if (data.user_id != this.profileid.idS) {
 
-      this.insertRoteiro(roteiroNovo);
+      await this.insertRoteiro(roteiroNovo);
+
+      console.log(roteiroNovo);
+
+      const id_roteiroN =await this.getRoteiroIDByInternID(roteiroNovo.id_interno);
+
+
+      const pontosdeinteresse= await this.getPontosdeInteresse(id_roteiroA);
+
+      if(pontosdeinteresse.length === 0){
+
+        console.log("não tem pontos");
+
+
+      }else{
+
+        for( const ponto of pontosdeinteresse){
+
+          const novoPonto: Pontodeinteresse = {
+            roteiro_id: id_roteiroN,
+            nome_local: ponto.nome_local,
+            endereco_local: ponto.endereco_local,
+            custo_acesso: ponto.custo_acesso,
+            custo_transporte: ponto.custo_transporte,
+            curiosidade: ponto.curiosidade,
+            sujestao: ponto.sujestao,
+          };
+
+          await this.insertPontodeInteresse(novoPonto);
+          console.log(novoPonto);
+
+        }
+
+        const message="Roteiro copiado com sucesso para a sua Biblioteca!";
+
+        const toast = await this.toastController.create({
+          message,
+          duration: 2000
+        });
+  
+        await toast.present();
+
+
+      }
+
+
+    }else{
+
+      const message="Esse Roteiro é seu";
+
+      const toast = await this.toastController.create({
+        message,
+        duration: 2000
+      });
+
+      await toast.present();
 
     }
 

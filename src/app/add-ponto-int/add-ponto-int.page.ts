@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoteirosService, Roteiro } from '../services/roteiros.service';
 import { PaisesService } from '../services/paises.service';
 import { SupabaseService } from '../services/supabase.service';
 import { ProfileIdService } from '../services/profile-id.service';

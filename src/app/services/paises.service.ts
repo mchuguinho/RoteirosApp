@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PaisesService {
 
-  private jsonURL = 'assets/data/paises.json'; // Certifique-se de que o caminho está correto
+  private jsonURL = 'assets/data/paises.json';
 
   constructor(private http: HttpClient) { }
 
